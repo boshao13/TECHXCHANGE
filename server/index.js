@@ -11,6 +11,10 @@ const gzip = require('express-static-gzip');
 
 app.use(gzip(path.join(__dirname, '../client/dist')));
 
+const cors = require('cors');
+
+app.use(cors());
+
 const morgan = require('morgan');
 
 app.use(morgan('dev'));
