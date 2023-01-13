@@ -1,0 +1,57 @@
+{
+  "name": "techxchange",
+  "version": "1.0.0",
+  "description": "TechXchange web application",
+  "main": "./server/index.js",
+  "scripts": {
+    "server:dev": "npx nodemon --watch ./server ./server/index.js",
+    "client:dev": "npx webpack --watch",
+    "build": "npx webpack",
+    "start": "node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tech-Xchange/TechXChange.git"
+  },
+  "keywords": [],
+  "author": "TechXchange",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tech-Xchange/TechXChange/issues"
+  },
+  "homepage": "https://github.com/Tech-Xchange/TechXChange#readme",
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.4",
+    "axios": "^1.2.2",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-static-gzip": "^2.1.7",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^9.1.2",
+    "compression-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
