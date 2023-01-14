@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Box, Container, Avatar } from '@mui/material/';
+import PendingTrades from './PendingTrades';
 
-function ProfilePage() {
+function Profile() {
   return (
-    <div>
-      ProfilePage
+    <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc' }}>
+      <div> hello </div>
+      <Avatar sx={{ width: '50vw', height: '20vh' }} />
+      <div>Hello User</div>
+      <div>USER DESCRIPTION</div>
 
-    </div>
+      <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
+        Items for Trade
+      </Box>
+      <PendingTrades />
+      <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
+        bookmarked items
+      </Box>
+    </Container>
   );
 }
 
-export default ProfilePage;
+export default Profile;

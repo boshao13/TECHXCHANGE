@@ -1,5 +1,5 @@
 import React from 'react';
-import Profile from './ProfilePage/Profile';
+import Profile from './ProfilePage/index';
 
 export default function App() {
   return (
