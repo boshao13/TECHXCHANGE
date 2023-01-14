@@ -64,12 +64,12 @@ const refreshTrades = () => {
       </div>
       <div style={tradeStyle[0]} className='trade-list'>
       {yourTrades.map(trade => {
-        return <Trade userData={userData} type={currentType} trade={trade}/>
+        return <Trade yourData={userData} type={currentType} trade={trade}/>
       })}
       </div>
       <div style={tradeStyle[1]} className='offer-list'>
       {yourOffers.map(trade => {
-        return <Trade userData={userData} type={currentType} trade={trade}/>
+        return <Trade yourData={userData} type={currentType} trade={trade}/>
       })}
       </div>
     </Box>
