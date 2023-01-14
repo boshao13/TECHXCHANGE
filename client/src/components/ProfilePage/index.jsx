@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Avatar } from '@mui/material/';
 import PendingTrades from './PendingTrades';
+import ItemsForTrade from './ItemsForTrade';
 
 function Profile() {
   return (
@@ -10,9 +11,7 @@ function Profile() {
       <div>Hello User</div>
       <div>USER DESCRIPTION</div>
 
-      <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
-        Items for Trade
-      </Box>
+      <ItemsForTrade />
       <PendingTrades />
       <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
         bookmarked items
