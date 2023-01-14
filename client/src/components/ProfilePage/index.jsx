@@ -1,0 +1,12 @@
+import React, { useState } from 'react';
+
+function ProfilePage() {
+  return (
+    <div>
+      ProfilePage
+
+    </div>
+  );
+}
+
+export default ProfilePage;
