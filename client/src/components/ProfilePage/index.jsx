@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-const ProfilePage = () => {
+function ProfilePage() {
   return (
-    <div>ProfilePage
-
+    <div>
+      ProfilePage
 
     </div>
-  )
-};
+  );
+}
 
 export default ProfilePage;
