@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Container, Avatar } from '@mui/material/';
 import PendingTrades from './PendingTrades';
 import ItemsForTrade from './ItemsForTrade';
+import AddItem from './AddItem';
 
 function Profile() {
-  return (
-    <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc' }}>
+  const [addItem, setAddItem] = useState(false);
 
-      <Box sx={{ bgcolor: '#ff9966' }}>
-        <Avatar sx={{ width: '50vw', height: '20vh' }} />
-        <div>Hello User</div>
-        <div>USER DESCRIPTION</div>
-      </Box>
-      <ItemsForTrade />
-      <PendingTrades />
-      <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
-        bookmarked items
-      </Box>
-    </Container>
+  return (
+    <>
+      {!addItem
+          && (
+          <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc' }}>
+            <Box sx={{ bgcolor: '#ff9966' }}>
+              <Avatar sx={{ width: '50vw', height: '20vh' }} />
+              <div>Hello User</div>
+              <div>USER DESCRIPTION</div>
+            </Box>
+            <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
+            <PendingTrades />
+            <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
+              bookmarked items
+            </Box>
+          </Container>
+          )}
+      {addItem
+          && (
+            <AddItem setAddItem={setAddItem} addItem={addItem} />
+          )}
+    </>
   );
 }
 
