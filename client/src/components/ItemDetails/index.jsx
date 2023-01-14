@@ -9,7 +9,7 @@
 /* eslint-disable spaced-comment */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Button, IconButton, HomeIcon, AddIcon, Avatar,
+  Container, Button, IconButton, HomeIcon, AddIcon, Avatar, Box,
 } from '@mui/material';
 import axios from 'axios';
 
@@ -61,46 +61,46 @@ export default function Item(props) {
 
   return (
     <Container id="itemDetails">
-      <div id="topButtons">
+      <Box id="topButtons">
         <IconButton id="homeButton" onClick={(e) => { onHomeButtonClick(e); }}>
           <HomeIcon />
         </IconButton>
         <IconButton id="addBookmarkButton" onClick={(e) => { onAddButtonClick(e); }}>
           <AddIcon />
         </IconButton>
-      </div>
+      </Box>
 
-      <div id="itemPhotoDiv">
+      <Box id="itemPhotoBox">
         <img id="itemPhoto" src={itemPhoto} alt="" />
-      </div>
+      </Box>
 
-      <div id="itemTitle">
+      <Box id="itemTitle">
         {itemTitle}
-      </div>
+      </Box>
 
-      <div id="userInfo">
+      <Box id="userInfo">
         <Avatar id="profilePhotoThumbnail" alt="" src={profilePhotoThumbnail} />
-        {/* <div id="userName">
+        {/* <Box id="userName">
           {userName}
-        </div> */}
-        <div id="userLocation">
+        </Box> */}
+        <Box id="userLocation">
           {userLocation}
-        </div>
-      </div>
+        </Box>
+      </Box>
 
-      <div id="itemDetails">
+      <Box id="itemDetails">
         {itemDetails}
-      </div>
+      </Box>
 
-      <div id="itemCondition">
+      <Box id="itemCondition">
         {itemCondition}
-      </div>
+      </Box>
 
-      <div id="proposeTrade">
+      <Box id="proposeTrade">
         <Button id="proposeTradeButton" onClick={(e) => { onProposeTradeClick(e); }}>
           Propose Trade
         </Button>
-      </div>
+      </Box>
     </Container>
   );
 }
