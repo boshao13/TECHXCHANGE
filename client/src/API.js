@@ -54,7 +54,7 @@ export function getUserFromID(userID) {
 
 export function updateTradeFromID(tradeID, currentTradeStatus) {
   const statusList = ['proposed', 'approved', 'completed'];
-  if(currentTradeStatus === 'completed') {return 'trade already completed'};
+  if(currentTradeStatus === 'completed') {return currentTradeStatus};
   var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
   return new Promise((resolve,reject) => {
     axiosCall('put', `/trade/status/${tradeID}/${newStatus}`)
