@@ -8,6 +8,7 @@ CREATE TABLE users (
   `email` VARCHAR(255) NOT NULL UNIQUE,
   `password` CHAR(60) NOT NULL,
   `thumbnail_url` VARCHAR(255) NULL,
+  `name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
   `street` VARCHAR(255) NOT NULL,
   `zip_code` VARCHAR(10) NOT NULL
