@@ -8,6 +8,11 @@ module.exports = {
     try {
       const conn = await db.getConnection();
       const [[user]] = await conn.query(`SELECT * FROM users WHERE email = "${data.email}";`);
+      if (!user) {
+        res.status(200).json(null);
+        return;
+      }
+
       const match = await bcrypt.compare(data.password, user.password);
 
       delete user.password;
