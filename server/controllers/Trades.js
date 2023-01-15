@@ -7,24 +7,21 @@ module.exports = {
 
 
   },
-  updateTradeFromID: function(req,res) {
+  updateTradeFromID: async function(req,res) {
     //tradeID/:newStatus
-    const tradeID = req.body.tradeID;
-    const newStatus = req.body.newStatus;
+    const tradeID = req.params.tradeID;
+    const newStatus = req.params.newStatus;
+    console.log('updateTRADE:', tradeID, newStatus);
+      try {
+        const qString = `UPDATE trades SET status='${newStatus}' WHERE id=${tradeID};`;
+        const conn = await db.getConnection();
+        const [results] = await conn.query(qString);
+        console.log('results', results);
 
-    return new Promise((resolve, reject) => {
-
-      db.query(
-        'SELECT * FROM Questions WHERE product_id = ?',
-        [product_id],
-        function(err, results, fields) {
-          if(err) {
-            reject('error in models', err);
-          }
-          resolve(results); // results contains rows returned by server
-        }
-      )//end query
-    });//end PROMISE
+        res.status(200).send('updated?');
+      } catch (err) {
+        res.status(500).send(err);
+      }
 
   },
 
