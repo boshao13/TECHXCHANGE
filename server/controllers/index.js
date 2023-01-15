@@ -8,14 +8,12 @@ module.exports.Shared = {
 
   getItemFromID: async function(req,res) {
     const itemID = req.params.itemID;
-    console.log('ITEM ID', itemID);
     const qString = `SELECT * FROM devices WHERE id = ${itemID}`;
 
     try {
       const connection = await db.getConnection();
       const results = await connection.query(qString);
-      const [sendBack]= results;
-      console.log('Results in getItems-> ', sendBack);
+      const [[sendBack]] = results;
       res.status(200).send(sendBack);
 
     } catch {
