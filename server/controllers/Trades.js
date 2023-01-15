@@ -2,8 +2,19 @@ const db = require('../db');
 
 module.exports = {
 
-  getInvolvedTrades: function(req,res) {
+  getInvolvedTrades: async function(req,res) {
     const userID = req.body.userID;
+
+    try {
+      const qString = `SELECT * from trades WHERE proposer_id=${userID} OR receiver_id=${userID};`;
+      const conn = await db.getConnection();
+      const [results] = await conn.query(qString);
+      console.log('results', results);
+
+      res.status(200).send(results);
+    } catch (err) {
+      res.status(500).send(err);
+    }
 
 
   },

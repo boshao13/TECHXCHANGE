@@ -18,7 +18,7 @@ export default function axiosCall(method, endpoint, data) {
 
 export function getAllInvolvedTrades(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('post', '/get/trades/involved', {userID})
+    axiosCall('post', '/trades/involved', {userID})
     .then(res => {
       resolve(res);
     })
@@ -42,7 +42,7 @@ export function getItemFromID(itemID) {
 
 export function getUserFromID(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/user/${userID}`)
+    axiosCall('get', `/users/user/${userID}`)
     .then(res => {
       resolve(res);
     })
@@ -57,7 +57,7 @@ export function updateTradeFromID(tradeID, currentTradeStatus) {
   if(currentTradeStatus === 'completed') {return 'trade already completed'};
   var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
   return new Promise((resolve,reject) => {
-    axiosCall('post', `/trade/status/${tradeID}/${newStatus}`)
+    axiosCall('put', `/trade/status/${tradeID}/${newStatus}`)
     .then(res => {
       resolve({message: 'successful', newStatus});
     })
