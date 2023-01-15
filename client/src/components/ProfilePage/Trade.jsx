@@ -5,10 +5,51 @@ const Trade = ({yourData, type, trade}) => {
   const [theirData, setTheirData] = React.useState({});
   const [yourItem, setYourItem] = React.useState({});
   const [theirItem, setTheirItem] = React.useState({});
+  const [tradeStatus, setTradeStatus] = React.useState(trade.status);
+  const [btnContent, setBtnContent] = React.useState('Approve');
   // trade = {id,
   //   proposer_id, proposer_device_id,
   //   receiver_id, receiver_device_id,
   //   status}
+
+  React.useEffect(() => {
+    //update BUTTON
+    if(tradeStatus === 'Proposed' && type === 'trade') {
+      setBtnContent('Waiting for Approval..');
+    } else if (tradeStatus === 'Proposed' && type === 'offer') {
+      setBtnContent('APPROVE');
+    } else if (tradeStatus === 'Approved' && type === 'trade') {
+      setBtnContent('ACCEPT');
+    } else if(tradeStatus === 'Approved' && type === 'offer') {
+      setBtnContent('Waiting for Accept..');
+    }
+  }, [tradeStatus])
+
+
+  const refreshTradeStatus = () => {
+    //get req for trade based on iD
+    API.getTradeFromID(trade.id)
+    .then(res => {
+      setTradeStatus(res.data.status);
+    })
+    .catch(err => {
+      console.error('err in getTradeFromID, Trade.jsx\n', err);
+    })
+  };
+  const updateTradeStatus = () => {
+    //get req for trade based on iD
+    API.updateTradeFromID(trade.id, tradeStatus)
+    .then(res => {
+      if(res.message === 'successful') {
+        setTradeStatus(res.newStatus)
+      } else {
+        console.log('RES but ERROR in updateTradeFromID, Trade.jsx\n', res);
+      }
+    })
+    .catch(err => {
+      console.error('err in updateTradeFromID, Trade.jsx\n', err);
+    })
+  };
 
   const setTheirUserData = (userID) => {
     API.getUserFromID(userID)
@@ -46,10 +87,19 @@ getSetItem(trade.receiver_id, 'receiver');
 
 
 
-
-
   return (
-    <div>Trade</div>
+    <div className='trade-box'>
+      <div className='trade-your-item'>
+        <Avatar source={yourData.thumbnail_url}/>
+        <img src={yourItem.thumnail_url}/>
+      </div>
+      <img src='trade-arrows'/>
+      <div className='trade-their-item'>
+        <Avatar source={theirData.thumbnail_url}/>
+        <img src={theirItem.thumnail_url}/>
+      </div>
+      <button>{btnContent}</button>
+    </div>
   )
 }
 
