@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Users, Trades, Shared } = require('./controllers');
 
 router.get('/users/auth', Users.authUser);
+router.get('/users/user/:id', Users.getUser);
 router.post('/users', Users.createUser);
 
 router.get('/user/:userID', Shared.getUser);//
