@@ -28,9 +28,9 @@ export function getAllInvolvedTrades(userID) {
   })//end Promise
 }
 
-export function getItemFromID(userID) {
+export function getItemFromID(itemID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/userid/${userID}`)
+    axiosCall('get', `/item/${itemID}`)
     .then(res => {
       resolve(res);
     })
@@ -42,9 +42,24 @@ export function getItemFromID(userID) {
 
 export function getUserFromID(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/userid/${userID}`)
+    axiosCall('get', `/user/${userID}`)
     .then(res => {
       resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function updateTradeFromID(tradeID, currentTradeStatus) {
+  const statusList = ['proposed', 'approved', 'completed'];
+  if(currentTradeStatus === 'completed') {return 'trade already completed'};
+  var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
+  return new Promise((resolve,reject) => {
+    axiosCall('post', `/trade/status/${tradeID}/${newStatus}`)
+    .then(res => {
+      resolve({message: 'successful', newStatus});
     })
     .catch(err => {
       reject(err);
