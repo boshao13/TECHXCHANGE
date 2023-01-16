@@ -53,9 +53,9 @@ export function getItemFromID(itemID) {
   })//end Promise
 }
 
-export function getItemFromUserID(userID) {
+export function getItemsFromUserID(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/user/${userID}`)
+    axiosCall('get', `/items/user/${userID}`)
     .then(res => {
       resolve(res);
     })

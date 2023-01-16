@@ -21,7 +21,7 @@ module.exports.Shared = {
     }
 
   },
-  getItemFromUserID: async function(req,res) {
+  getItemsFromUserID: async function(req,res) {
     const userID = req.params.userID;
     const qString = `SELECT * FROM devices WHERE user_id = ${userID}`;
     console.log(userID);
