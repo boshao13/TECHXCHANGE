@@ -3,7 +3,7 @@ import axios from 'axios';
 //all functions are promises, so "THEN-able"
 
 export default function axiosCall(method, endpoint, data) {
-  const url = `${process.env.URL}${endpoint}`;
+  const url = `http://localhost:8080${endpoint}`;
   return new Promise((resolve, reject) => {
     axios({method, url, data })
     .then(res => {
@@ -18,7 +18,7 @@ export default function axiosCall(method, endpoint, data) {
 
 export function getAllInvolvedTrades(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('post', '/get/trades/involved', {userID})
+    axiosCall('post', '/trades/involved', {userID})
     .then(res => {
       resolve(res);
     })
@@ -28,9 +28,34 @@ export function getAllInvolvedTrades(userID) {
   })//end Promise
 }
 
-export function getItemFromID(userID) {
+export function createTrade(tradeObj) {
+  //console.log('TRADEOBJ: ', tradeObj)
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/userid/${userID}`)
+    axiosCall('post', '/trades', tradeObj)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function getItemFromID(itemID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/item/${itemID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function getItemFromUserID(userID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/item/user/${userID}`)
     .then(res => {
       resolve(res);
     })
@@ -42,9 +67,24 @@ export function getItemFromID(userID) {
 
 export function getUserFromID(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/userid/${userID}`)
+    axiosCall('get', `/users/user/${userID}`)
     .then(res => {
       resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function updateTradeFromID(tradeID, currentTradeStatus) {
+  const statusList = ['proposed', 'approved', 'completed'];
+  if(currentTradeStatus === 'completed') {return currentTradeStatus};
+  var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
+  return new Promise((resolve,reject) => {
+    axiosCall('put', `/trade/status/${tradeID}/${newStatus}`)
+    .then(res => {
+      resolve({message: 'successful', newStatus});
     })
     .catch(err => {
       reject(err);
