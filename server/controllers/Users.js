@@ -30,7 +30,7 @@ module.exports = {
       const salt = await bcrypt.genSalt();
       const hash = await bcrypt.hash(data.password, salt);
 
-      let query = `INSERT INTO users (email, password, description, street, zip_code) VALUES ("${data.email}", "${hash}", "${description}", "${data.street}", "${data.zip_code}");`;
+      let query = `INSERT INTO users (name, email, password, description, street, zip_code) VALUES ("${data.name}", "${data.email}", "${hash}", "${description}", "${data.street}", "${data.zip_code}");`;
       const conn = await db.getConnection();
       await conn.execute(query);
 
