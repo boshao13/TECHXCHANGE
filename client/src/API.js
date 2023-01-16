@@ -3,7 +3,7 @@ import axios from 'axios';
 //all functions are promises, so "THEN-able"
 
 export default function axiosCall(method, endpoint, data) {
-  const url = `${process.env.URL}${endpoint}`;
+  const url = `http://localhost:8080${endpoint}`;
   return new Promise((resolve, reject) => {
     axios({method, url, data })
     .then(res => {
@@ -28,9 +28,34 @@ export function getAllInvolvedTrades(userID) {
   })//end Promise
 }
 
+export function createTrade(tradeObj) {
+  //console.log('TRADEOBJ: ', tradeObj)
+  return new Promise((resolve,reject) => {
+    axiosCall('post', '/trades', tradeObj)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
 export function getItemFromID(itemID) {
   return new Promise((resolve,reject) => {
     axiosCall('get', `/item/${itemID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function getItemFromUserID(userID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/item/user/${userID}`)
     .then(res => {
       resolve(res);
     })
