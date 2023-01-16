@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Profile from './ProfilePage/index';
 import Item from './ItemDetails/index.jsx';
+import images from '../../assets/images.js';
 
 export default function App() {
   const [allItems, setAllItems] = useState([]);
@@ -27,6 +28,8 @@ export default function App() {
   }, []);
 
   return (
+    <>
     <Profile />
+    </>
   );
 }
