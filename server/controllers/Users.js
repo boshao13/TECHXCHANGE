@@ -46,13 +46,14 @@ module.exports = {
   },
   getUser: async (req, res) => {
     const { params: { id } } = req;
-
+    console.log('GETTING USER');
     try {
       const query = `SELECT * FROM users WHERE id = ${id};`;
       const conn = await db.getConnection();
       const [[user]] = await conn.query(query);
 
-      res.status(200).json(user ?? null);
+       res.status(200).send(user);
+      // res.status(200).json(user ?? null);
     } catch (err) {
       res.status(500).send(err);
     }

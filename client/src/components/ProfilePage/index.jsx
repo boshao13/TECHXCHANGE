@@ -13,7 +13,7 @@ function Profile({user}) {
       <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
         Items for Trade
       </Box>
-      {/* <PendingTrades userData={user}/> */}
+      <PendingTrades userData={user}/>
       <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
         bookmarked items
       </Box>

@@ -12,7 +12,10 @@ export default function App() {
   const [user, setUser] = useState({});
   const [userItems, setUserItems] = useState([]);
 
+  console.log('App loaded...');
+
   useEffect(() => {
+    console.log('getting user');
     var userIDToFetch = 1;
     API.getUserFromID(1)
     .then((response) => {

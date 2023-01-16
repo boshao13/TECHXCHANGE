@@ -76,6 +76,17 @@ export function getUserFromID(userID) {
     })
   })//end Promise
 }
+export function getTradeFromID(tradeID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/trade/${tradeID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
 
 export function updateTradeFromID(tradeID, currentTradeStatus) {
   const statusList = ['proposed', 'approved', 'completed'];

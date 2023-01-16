@@ -2,7 +2,7 @@ import React from 'react';
 import * as API from '../../API.js';
 import Trade from './Trade.jsx';
 
-import { Box, Switch } from '@mui/material/';
+import { Box, Switch, Grid } from '@mui/material/';
 import {styled} from '@mui/system'
 import RefreshIcon from '@mui/icons-material/Refresh';
 
@@ -22,8 +22,6 @@ const Box1 = styled('div')({
 });
 
 
-
-
 function PendingTrades({userData}) {
 // userData { id, email, password, thumnail_url, description, street, zip_code }
 const [yourTrades, setYourTrades] = React.useState([]);
@@ -32,12 +30,7 @@ const [currentType, setCurrentType] = React.useState('trade'); //or OFFER
 const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades'); //or OFFER
 const [tradeStyle, setTradeStyle] = React.useState([{display: 'block'},{display: 'none'}]); //or OFFER
 
-React.useEffect(() => { //toggles view based on currentType
-  if(userData.id) {
-    console.log('USER DATA in PENDING Trades\n', userData);
-    getSetTrades();
-  }
-}, [userData])
+console.log('Pending trades loaded...');
 
 React.useEffect(() => { //toggles view based on currentType
   var typeText = currentType === 'trade' ? 'Showing Your Trades' : 'Showing Your Offers';
@@ -78,25 +71,30 @@ const toggleTrade = () => {
 
 
   return (
-    <Box1 sx={{ bgcolor: '#ff9966', height: '20vh' }}>
+    <Box sx={{ bgcolor: '#ff9966', height: '20vh' }}>
       <div className='trade-header'>
         <span>
         <Switch defaultChecked onClick={e => {e.preventDefault(); toggleTrade()}} className="toggle-trade"/>
           <span>{typeHTML}</span>
         </span>
-        <RefreshIcon  onClick={e => {e.preventDefault(); getSetTrades()}} className="refresh-trades"/>
+        <RefreshIcon onClick={e => {e.preventDefault(); getSetTrades()}} className="refresh-trades"/>
       </div>
       <div style={tradeStyle[0]} className='trade-list'>
-      {yourTrades.map(trade => {
-        return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
-      })}
+        {yourTrades.map(trade => {
+          return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
+        })}
       </div>
       <div style={tradeStyle[1]} className='offer-list'>
-      {yourOffers.map(trade => {
-        return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
-      })}
+        {yourOffers.map(trade => {
+          return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
+        })}
       </div>
-    </Box1>
+      {/* <Grid container columns={{ xs: 1 }}  style={tradeStyle[0]} className='trade-list'>
+      </Grid>
+      <Grid container columns={{ xs: 1 }}  style={tradeStyle[1]} className='offer-list'>
+      </Grid> */}
+
+    </Box>
   );
 }
 export default PendingTrades;
