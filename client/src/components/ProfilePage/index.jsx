@@ -11,8 +11,8 @@ function Profile() {
     <>
       {!addItem
           && (
-          <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc' }}>
-            <Box sx={{ bgcolor: '#ff9966' }}>
+          <Container sx={{ width: '100vw', height: '100vh', bgcolor: '#CAF0F8' }}>
+            <Box sx={{ alignContent: 'center', flexWrap: 'wrap', display: 'flex', flexDirection: 'column' ,justifyContent: 'center', bgcolor: '#ff9966' }}>
               <Avatar sx={{ width: '50vw', height: '20vh' }} />
               <div>Hello User</div>
               <div>USER DESCRIPTION</div>

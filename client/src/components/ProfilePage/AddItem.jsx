@@ -13,7 +13,7 @@ function AddItem({ setAddItem, addItem }) {
     console.log(itemName, itemCondition, itemDescription, itemImage);
   };
   return (
-    <Container>
+    <Container sx={{ width: '100vw', height: '100vh', bgcolor: '#CAF0F8' }}>
       <Button onClick={handleClick} variant="contained">back</Button>
       <Box sx={{ bgcolor: '#ff9966', height: '80vh' }}>
         Add A New Item
