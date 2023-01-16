@@ -15,7 +15,6 @@ const Trade = ({yourData, type, trade}) => {
   //   proposer_id, proposer_device_id,
   //   receiver_id, receiver_device_id,
   //   status}
-console.log('trade loaded...');
 
   React.useEffect(() => {
     if(trade.id) {

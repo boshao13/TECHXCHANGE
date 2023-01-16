@@ -45,12 +45,26 @@ module.exports = {
     }
   },
   getUser: async (req, res) => {
-    const { params: { id } } = req;
-    console.log('GETTING USER');
+    const userID = req.params.id;
+    // const { params: { id } } = req;
+    console.log('GETTING USER with id of', userID);
+
+    const qString = `SELECT * FROM users WHERE id = ${userID};`;
+
+    // db.pool1.query(qString, function(err, results) {
+    //   if(err) {
+    //     console.log(err);
+    //     res.status(500).send(err);
+    //     return;
+    //   }
+    //   console.log('promise style');
+    //   res.status(200).send(results);
+    // })
+
+
     try {
-      const query = `SELECT * FROM users WHERE id = ${id};`;
       const conn = await db.getConnection();
-      const [[user]] = await conn.query(query);
+      const [[user]] = await conn.query(qString);
 
        res.status(200).send(user);
       // res.status(200).json(user ?? null);

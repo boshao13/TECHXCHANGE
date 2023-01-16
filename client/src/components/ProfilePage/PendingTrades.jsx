@@ -30,14 +30,17 @@ const [currentType, setCurrentType] = React.useState('trade'); //or OFFER
 const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades'); //or OFFER
 const [tradeStyle, setTradeStyle] = React.useState([{display: 'block'},{display: 'none'}]); //or OFFER
 
-console.log('Pending trades loaded...');
-
 React.useEffect(() => { //toggles view based on currentType
   var typeText = currentType === 'trade' ? 'Showing Your Trades' : 'Showing Your Offers';
   setTypeHTML(typeText);
   setTradeStyle([tradeStyle[1],tradeStyle[0]]);
 
 }, [currentType])
+React.useEffect(() => { //sets Trades
+  if(userData.id) {
+    getSetTrades();
+  }
+}, [userData])
 
 //First
 const getSetTrades = () => {
