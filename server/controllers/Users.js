@@ -9,7 +9,7 @@ module.exports = {
       const conn = await db.getConnection();
       const [[user]] = await conn.query(`SELECT * FROM users WHERE email = "${data.email}";`);
       if (!user) {
-        res.status(200).json(null);
+        res.status(201).json(null);
         return;
       }
 
@@ -17,7 +17,7 @@ module.exports = {
 
       delete user.password;
 
-      res.status(200).json(match ? user : null);
+      res.status(201).json(match ? user : null);
     } catch (err) {
       res.status(500).send(err);
     }
