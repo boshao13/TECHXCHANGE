@@ -3,7 +3,7 @@ import axios from 'axios';
 //all functions are promises, so "THEN-able"
 
 export default function axiosCall(method, endpoint, data) {
-  const url = `${process.env.URL}${endpoint}`;
+  const url = `${URL}${endpoint}`;
   return new Promise((resolve, reject) => {
     axios({method, url, data })
     .then(res => {
@@ -31,6 +31,18 @@ export function getAllInvolvedTrades(userID) {
 export function getItemFromID(itemID) {
   return new Promise((resolve,reject) => {
     axiosCall('get', `/item/${itemID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
+export function getItemFromUserID(userID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/item/user/${userID}`)
     .then(res => {
       resolve(res);
     })

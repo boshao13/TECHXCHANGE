@@ -7,6 +7,7 @@ router.post('/users', Users.createUser);
 
 router.post('/trades/involved', Trades.getInvolvedTrades);//WORKING
 router.get('/item/:itemID', Shared.getItemFromID);//WORKING
+router.get('/item/user/:userID', Shared.getItemFromUserID);
 router.put('/trade/status/:tradeID/:newStatus', Trades.updateTradeFromID);//WORKING
 
 module.exports = router;
