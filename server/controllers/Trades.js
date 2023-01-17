@@ -7,7 +7,7 @@ module.exports = {
 
     try {
       const qString = `SELECT * from trades WHERE proposer_id=${userID} OR receiver_id=${userID};`;
-      const conn = await db.getConnection();
+      const conn = await db.pool.getConnection();
       const [results] = await conn.query(qString);
       // console.log('results', results);
 
@@ -23,7 +23,7 @@ module.exports = {
 
     try {
       const qString = `SELECT * from trades WHERE id=${tradeID}`;
-      const conn = await db.getConnection();
+      const conn = await db.pool.getConnection();
       const [[results]] = await conn.query(qString);
       // console.log('trade from id: ', results);
 
@@ -39,7 +39,7 @@ module.exports = {
     // console.log('updateTRADE:', tradeID, newStatus);
       try {
         const qString = `UPDATE trades SET status='${newStatus}' WHERE id=${tradeID};`;
-        const conn = await db.getConnection();
+        const conn = await db.pool.getConnection();
         const [results] = await conn.query(qString);
         // console.log('results', results);
 
@@ -53,7 +53,7 @@ module.exports = {
     const { body: data } = req;
     try {
       let query = `INSERT INTO trades (proposer_id, proposer_device_id, receiver_id, receiver_device_id, status) VALUES (${data.proposer_id}, ${data.proposer_device_id}, ${data.receiver_id}, ${data.receiver_device_id}, "${data.status}");`;
-      const conn = await db.getConnection();
+      const conn = await db.pool.getConnection();
       const [trade] = await conn.query(query);
       res.status(201).send('posted');
     } catch (err) {

@@ -6,7 +6,7 @@ module.exports = {
     const { body: data } = req;
 
     try {
-      const conn = await db.getConnection();
+      const conn = await db.pool.getConnection();
       const [[user]] = await conn.query(`SELECT * FROM users WHERE email = "${data.email}";`);
       if (!user) {
         res.status(200).json(null);
@@ -31,7 +31,7 @@ module.exports = {
       const hash = await bcrypt.hash(data.password, salt);
 
       let query = `INSERT INTO users (name, email, password, description, street, zip_code) VALUES ("${data.name}", "${data.email}", "${hash}", "${description}", "${data.street}", "${data.zip_code}");`;
-      const conn = await db.getConnection();
+      const conn = await db.pool.getConnection();
       await conn.execute(query);
 
       query = `SELECT * FROM users WHERE email = "${data.email}"`;
@@ -51,25 +51,25 @@ module.exports = {
 
     const qString = `SELECT * FROM users WHERE id = ${userID};`;
 
-    // db.pool1.query(qString, function(err, results) {
-    //   if(err) {
-    //     console.log(err);
-    //     res.status(500).send(err);
-    //     return;
-    //   }
-    //   console.log('promise style');
-    //   res.status(200).send(results);
-    // })
+    db.pool1.query(qString, function(err, results) {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      // console.log('promise style results\n', results);
+      res.status(200).send([results]);
+    })
 
 
-    try {
-      const conn = await db.getConnection();
-      const [[user]] = await conn.query(qString);
+    // try {
+    //   const conn = await db.pool.getConnection();
+    //   const [[user]] = await conn.query(qString);
 
-       res.status(200).send(user);
-      // res.status(200).json(user ?? null);
-    } catch (err) {
-      res.status(500).send(err);
-    }
+    //    res.status(200).send(user);
+    //   // res.status(200).json(user ?? null);
+    // } catch (err) {
+    //   res.status(500).send(err);
+    // }
   },
 };

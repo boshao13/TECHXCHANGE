@@ -6,57 +6,44 @@ import Card from '@mui/material/Card';
 
 
 const Trade = ({yourData, type, trade}) => {
+  const [thisTrade, setThisTrade] = React.useState(trade);
   const [theirData, setTheirData] = React.useState({});
   const [yourItem, setYourItem] = React.useState({});
   const [theirItem, setTheirItem] = React.useState({});
-  const [tradeStatus, setTradeStatus] = React.useState('');
-  const [btnContent, setBtnContent] = React.useState('Approve');
+
+  const [btnContent, setBtnContent] = React.useState('');
   // trade = {id,
   //   proposer_id, proposer_device_id,
   //   receiver_id, receiver_device_id,
   //   status}
-
-  React.useEffect(() => {
-    if(trade.id) {
-      console.log('TRADE: ', trade);
-      setTradeStatus(trade.status);
-    }
-  },[trade]);
+  console.log('loading Trades for type...', type);
 
 
-  React.useEffect(() => {
+  React.useEffect(() => { //set Btn content
     //update BUTTON
-    if(tradeStatus === 'proposed' && type === 'trade') {
-      setBtnContent('Waiting for Approval..');
-    } else if (tradeStatus === 'proposed' && type === 'offer') {
-      setBtnContent('APPROVE');
-    } else if (tradeStatus === 'approved' && type === 'trade') {
-      setBtnContent('ACCEPT');
-    } else if(tradeStatus === 'approved' && type === 'offer') {
-      setBtnContent('Waiting for Accept..');
+    if(thisTrade.status) {
+      if(thisTrade.status === 'proposed' && type === 'trade') {
+        setBtnContent('Waiting for Approval..');
+      } else if (thisTrade.status === 'proposed' && type === 'offer') {
+        setBtnContent('APPROVE');
+      } else if (thisTrade.status === 'approved' && type === 'trade') {
+        setBtnContent('ACCEPT');
+      } else if(thisTrade.status === 'approved' && type === 'offer') {
+        setBtnContent('Waiting for Accept..');
+      }
     }
-  }, [tradeStatus])
+  }, [thisTrade]);
 
 
-  const refreshTradeStatus = () => {
-    //get req for trade based on iD
-    API.getTradeFromID(trade.id)
-    .then(res => {
-      setTradeStatus(res.data.status);
-    })
-    .catch(err => {
-      console.error('err in getTradeFromID, Trade.jsx\n', err);
-    })
-  };
   const updateTradeStatus = () => {
     //get req for trade based on iD
-    API.updateTradeFromID(trade.id, tradeStatus)
+    API.updateTradeFromID(thisTrade.id, thisTrade.status)
     .then(res => {
-      if(res.message === 'successful') {
-        setTradeStatus(res.newStatus)
-      } else {
-        console.log('RES but ERROR in updateTradeFromID, Trade.jsx\n', res);
-      }
+      API.getTradeFromID(thisTrade.id)
+      .then(res => {
+        console.log('updated trade? -> ', res.data);
+        setThisTrade(res.data);
+      })
     })
     .catch(err => {
       console.error('err in updateTradeFromID, Trade.jsx\n', err);
@@ -95,26 +82,26 @@ const Trade = ({yourData, type, trade}) => {
 };
 
 React.useEffect(() => {
- if(trade.id) {
-  getSetItem(trade.proposer_device_id, 'proposer');
-  getSetItem(trade.receiver_device_id, 'receiver');
+ if(thisTrade.id) {
+  getSetItem(thisTrade.proposer_device_id, 'proposer');
+  getSetItem(thisTrade.receiver_device_id, 'receiver');
  }
-}, [trade])
+}, [thisTrade])
 
 
 
   return (
     <Card className='trade-box'>
       <div className='trade-your-item'>
-        <Avatar source={yourData.thumbnail_url}/>
-        <img src={yourItem.thumnail_url}/>
+        <Avatar src={yourData.thumbnail_url}/>
+        {/* <img src={yourItem.thumnail_url}/> */}
       </div>
-      <SwapHorizIcon />
+      <SwapHorizIcon fontSize='large'/>
       <div className='trade-their-item'>
-        <Avatar source={theirData.thumbnail_url}/>
-        <img src={theirItem.thumnail_url}/>
+        <Avatar src={theirData.thumbnail_url}/>
+        {/* <img src={theirItem.thumbnail_url}/> */}
       </div>
-      <button>{btnContent}</button>
+      <button onClick={e => {updateTradeStatus(); console.log('clicked')}}>{btnContent}</button>
     </Card>
   )
 };

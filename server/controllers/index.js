@@ -11,7 +11,7 @@ module.exports.Shared = {
     const qString = `SELECT * FROM devices WHERE id = ${itemID}`;
     // console.log(itemID);
     try {
-      const connection = await db.getConnection();
+      const connection = await db.pool.getConnection();
       const results = await connection.query(qString);
       const [[sendBack]] = results;
       res.status(200).json(sendBack);
@@ -26,7 +26,7 @@ module.exports.Shared = {
     const qString = `SELECT * FROM devices WHERE user_id = ${userID}`;
     // console.log(userID);
     try {
-      const connection = await db.getConnection();
+      const connection = await db.pool.getConnection();
       const results = await connection.query(qString);
 
       const [sendBack] = results;

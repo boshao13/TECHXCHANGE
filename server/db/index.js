@@ -9,6 +9,6 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-module.exports = pool.promise();
-// module.exports.pool = pool.promise();
-// module.exports.pool1 = pool;
+// module.exports = pool.promise();
+module.exports.pool = pool.promise();
+module.exports.pool1 = pool;

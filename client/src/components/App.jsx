@@ -19,8 +19,8 @@ export default function App() {
     var userIDToFetch = 1;
     API.getUserFromID(1)
     .then((response) => {
-      console.log(`USER DATA from ID ${userIDToFetch}\n`, response.data);
-      setUser(response.data);
+      console.log(`USER DATA from ID ${userIDToFetch}\n`, response.data[0][0]);
+      setUser(response.data[0][0]);
     }).catch((error) => {
       console.log(error);
     });

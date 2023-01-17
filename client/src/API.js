@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //all functions are promises, so "THEN-able"
 
-export default function axiosCall(method, endpoint, data) {
+ function axiosCall(method, endpoint, data) {
   const url = `http://localhost:8080${endpoint}`;
   return new Promise((resolve, reject) => {
     axios({method, url, data })

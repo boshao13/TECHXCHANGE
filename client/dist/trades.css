@@ -1,7 +1,29 @@
 
+#trades {
+
+}
 
 .trade-header {
- background-color: antiquewhite;
+ background-color: rgb(212, 130, 22);
  display: flex;
  justify-content: space-between;
+}
+
+.trade-list, .offer-list {
+  background-color: aquamarine;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.trade-box {
+  background-color: blueviolet;
+  padding: 5px;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+}
+.swap {
+  font-size: 2rem;
+  width: 100px;
 }

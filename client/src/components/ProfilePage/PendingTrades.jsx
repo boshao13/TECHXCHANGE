@@ -26,21 +26,32 @@ function PendingTrades({userData}) {
 // userData { id, email, password, thumnail_url, description, street, zip_code }
 const [yourTrades, setYourTrades] = React.useState([]);
 const [yourOffers, setYourOffers] = React.useState([]);
+const [shownTrades, setShownTrades] = React.useState([]);
 const [currentType, setCurrentType] = React.useState('trade'); //or OFFER
 const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades'); //or OFFER
-const [tradeStyle, setTradeStyle] = React.useState([{display: 'block'},{display: 'none'}]); //or OFFER
+// const [tradeStyle, setTradeStyle] = React.useState([{display: 'block'},{display: 'none'}]); //or OFFER
 
-React.useEffect(() => { //toggles view based on currentType
+React.useEffect(() => { //set HTML span for TYPE
   var typeText = currentType === 'trade' ? 'Showing Your Trades' : 'Showing Your Offers';
   setTypeHTML(typeText);
-  setTradeStyle([tradeStyle[1],tradeStyle[0]]);
+}, [currentType]);
 
-}, [currentType])
+
 React.useEffect(() => { //sets Trades
   if(userData.id) {
     getSetTrades();
   }
 }, [userData])
+
+React.useEffect(() => { //sets Trades
+  if(yourTrades.length && yourOffers.length) {
+    if(currentType === 'trades') {
+      setShownTrades(yourTrades);
+    } else {
+      setShownTrades(yourTrades);
+    }
+  }
+}, [yourTrades, yourOffers, currentType])
 
 //First
 const getSetTrades = () => {
@@ -60,6 +71,8 @@ API.getAllInvolvedTrades(userData.id)
   }); //end forEach
   setYourTrades(tempTrades);
   setYourOffers(tempOffers);
+  console.log('Trades\n', tempTrades);
+  console.log('Offers\n', tempOffers);
   if(errTrades.length) {console.log('error trades involved', errTrades)}
 }) //Involved Trades set
 .catch(err => {
@@ -68,28 +81,25 @@ API.getAllInvolvedTrades(userData.id)
 };
 
 const toggleTrade = () => {
+  console.log('toggling trade type');
   var type = currentType === 'trade' ? 'offer' : 'trade';
   setCurrentType(type);
+  // setTradeStyle([tradeStyle[1], tradeStyle[0]]);
 }
 
 
   return (
-    <Box sx={{ bgcolor: '#ff9966', height: '20vh' }}>
+    <div id='trades'>
       <div className='trade-header'>
         <span>
-        <Switch defaultChecked onClick={e => {e.preventDefault(); toggleTrade()}} className="toggle-trade"/>
+          <Switch defaultChecked onClick={e => {e.preventDefault(); toggleTrade()}} className="toggle-trade"/>
           <span>{typeHTML}</span>
         </span>
         <RefreshIcon onClick={e => {e.preventDefault(); getSetTrades()}} className="refresh-trades"/>
       </div>
-      <div style={tradeStyle[0]} className='trade-list'>
-        {yourTrades.map(trade => {
-          return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
-        })}
-      </div>
-      <div style={tradeStyle[1]} className='offer-list'>
-        {yourOffers.map(trade => {
-          return <Trade key={trade.id} yourData={userData} type={currentType} trade={trade}/>
+      <div className='trade-list'>
+        {shownTrades.map(trade => {
+          return <Trade key={trade.id} type={currentType} yourData={userData} trade={trade}/>
         })}
       </div>
       {/* <Grid container columns={{ xs: 1 }}  style={tradeStyle[0]} className='trade-list'>
@@ -97,7 +107,7 @@ const toggleTrade = () => {
       <Grid container columns={{ xs: 1 }}  style={tradeStyle[1]} className='offer-list'>
       </Grid> */}
 
-    </Box>
+    </div>
   );
 }
 export default PendingTrades;
