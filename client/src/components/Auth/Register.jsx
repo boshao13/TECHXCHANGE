@@ -16,7 +16,7 @@ export default function Register({ props: { setUser, setRegister } }) {
     };
     const { data: user } = await axios.post('/users', data);
     if (user) {
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       setUser(user);
     }
   };
@@ -26,7 +26,7 @@ export default function Register({ props: { setUser, setRegister } }) {
       elevation={5}
       sx={{
         position: 'fixed',
-        width: '45vw',
+        width: '80vw',
         height: '70vh',
         display: 'flex',
         flexDirection: 'column',

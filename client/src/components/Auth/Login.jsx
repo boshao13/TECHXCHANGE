@@ -12,7 +12,7 @@ export default function Login({ props: { setUser, setRegister } }) {
     };
     const { data: user } = await axios.post('/users/auth', data);
     if (user) {
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       setUser(user);
     }
   };
@@ -22,7 +22,7 @@ export default function Login({ props: { setUser, setRegister } }) {
       elevation={5}
       sx={{
         position: 'fixed',
-        width: '45vw',
+        width: '80vw',
         height: '60vh',
         display: 'flex',
         flexDirection: 'column',
