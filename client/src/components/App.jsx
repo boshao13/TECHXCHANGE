@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, { useState , useEffect} from 'react';
+import axios from 'axios';
 import Auth from './Auth';
 import Profile from './ProfilePage';
 
@@ -7,9 +7,25 @@ export default function App() {
   const [user, setUser] = useState(localStorage.getItem('user'));
   const [view, setView] = useState({ name: 'Auth', props: { setUser } });
 
-  const changeView = (viewName, viewProps, isCallback = false) => (
-    !isCallback ? setView({ name: viewName, props: viewProps })
-      : () => setView({ name: viewProps, props: viewName })
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/devices')
+      .then((response) => {
+        setAllItems(response);
+      }).catch((error) => {
+        console.log(error);
+      });
+
+    axios.get('http://localhost:8080/users')
+      .then((response) => {
+        setAllUsers(response);
+      }).catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  return (
+    <Profile user={user}/>
   );
 
   const renderView = () => {

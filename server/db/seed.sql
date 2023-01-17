@@ -5,7 +5,7 @@ DELETE FROM devices;
 DELETE FROM trades;
 
 INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `zip_code`)
-VALUES ('bob@gmail.com', 'bob', 'pass123', 'https://pyxis.nymag.com/v1/imgs/451/ba2/6f22dfb79768b5c0841c4570cbd8cfb7bf-13-armond-white-2.rsquare.w330.jpg', 'i love trading phones', '1 street way', 98208);
+VALUES ('bob@gmail.com', 'bob', 'pass123', 'image.jpeg', 'i love trading phones', '1 street way', 98208);
 
 INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `zip_code`)
 VALUES ('sally@gmail.com', 'sally', 'pass321', 'https://viterbischool.usc.edu/wp-content/uploads/2020/05/Lily-Profile-Square.jpeg', 'i like trading laptops', '20 street avenue', 95747);
