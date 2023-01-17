@@ -127,7 +127,7 @@ React.useEffect(() => {
         </div>
       </div>
       <div className='btn-trade-box'>
-      <Button disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
+      <Button sx={{width: '90%'}} disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
       </div>
     </Card>
   )
