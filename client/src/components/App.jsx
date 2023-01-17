@@ -6,30 +6,38 @@ import axios from 'axios';
 import Profile from './ProfilePage/index';
 import Item from './ItemDetails/index.jsx';
 import images from '../../assets/images.js';
+import * as API from '../API.js';
 
 export default function App() {
-  const [allItems, setAllItems] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
+  const [user, setUser] = useState({});
+  const [userItems, setUserItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/devices')
-      .then((response) => {
-        setAllItems(response);
-      }).catch((error) => {
-        console.log(error);
-      });
-
-    axios.get('http://localhost:8080/users')
-      .then((response) => {
-        setAllUsers(response);
-      }).catch((error) => {
-        console.log(error);
-      });
+    var userIDToFetch = 1;
+    API.getUserFromID(1)
+    .then((response) => {
+      console.log(`USER DATA from ID ${userIDToFetch}\n`, response.data);
+      setUser(response.data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }, []);
+
+  useEffect(() => {
+    if(user.id) {
+      API.getItemsFromUserID(user.id)
+        .then((response) => {
+          // console.log('ITEMS FROM USER\n', response.data);
+          setUserItems(response.data);
+        }).catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [user]);
 
   return (
     <>
-    <Profile />
+    <Profile user={user}/>
     </>
   );
 }

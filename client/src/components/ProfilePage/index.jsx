@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Container, Avatar } from '@mui/material/';
 import PendingTrades from './PendingTrades';
 
-function Profile() {
+function Profile({user}) {
   return (
     <Container maxWidth="sm" sx={{ bgcolor: '#cfe8fc' }}>
       <div> hello </div>
@@ -13,7 +13,7 @@ function Profile() {
       <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
         Items for Trade
       </Box>
-      <PendingTrades />
+      {/* <PendingTrades userData={user}/> */}
       <Box sx={{ bgcolor: '#ffcc99', height: '20vh' }}>
         bookmarked items
       </Box>

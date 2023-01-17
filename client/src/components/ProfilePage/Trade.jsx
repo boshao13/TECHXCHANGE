@@ -1,5 +1,7 @@
 import React from 'react'
 import API from '../../API.js'
+import Avatar from '@mui/material/Avatar';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 const Trade = ({yourData, type, trade}) => {
   const [theirData, setTheirData] = React.useState({});
@@ -93,7 +95,7 @@ getSetItem(trade.receiver_id, 'receiver');
         <Avatar source={yourData.thumbnail_url}/>
         <img src={yourItem.thumnail_url}/>
       </div>
-      <img src='trade-arrows'/>
+      <SwapHorizIcon />
       <div className='trade-their-item'>
         <Avatar source={theirData.thumbnail_url}/>
         <img src={theirItem.thumnail_url}/>
