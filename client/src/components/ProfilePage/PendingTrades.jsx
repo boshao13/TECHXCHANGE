@@ -27,9 +27,8 @@ function PendingTrades({userData}) {
 const [yourTrades, setYourTrades] = React.useState([]);
 const [yourOffers, setYourOffers] = React.useState([]);
 const [shownTrades, setShownTrades] = React.useState([]);
-const [currentType, setCurrentType] = React.useState('trade'); //or OFFER
-const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades'); //or OFFER
-// const [tradeStyle, setTradeStyle] = React.useState([{display: 'block'},{display: 'none'}]); //or OFFER
+const [currentType, setCurrentType] = React.useState('trade'); //or "offer"
+const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades');
 
 React.useEffect(() => { //set HTML span for TYPE
   var typeText = currentType === 'trade' ? 'Showing Your Trades' : 'Showing Your Offers';
@@ -43,11 +42,10 @@ React.useEffect(() => { //sets Trades
   }
 }, [userData])
 
-React.useEffect(() => { //sets Trades
+React.useEffect(() => { //sets displayed Trades
   if(yourTrades.length && yourOffers.length) {
     if(currentType === 'trade' && yourTrades.length) {
       setShownTrades(yourTrades);
-      // console.log('updated shown trades with, ', yourTrades);
     } else if(currentType === 'offer' && yourOffers.length) {
       setShownTrades(yourOffers);
     }
@@ -83,10 +81,8 @@ API.getAllInvolvedTrades(userData.id)
 };
 
 const toggleTrade = () => {
-  // console.log('toggling trade type');
   var type = currentType === 'trade' ? 'offer' : 'trade';
   setCurrentType(type);
-  // setTradeStyle([tradeStyle[1], tradeStyle[0]]);
 }
 
 
@@ -104,10 +100,6 @@ const toggleTrade = () => {
           return <Trade key={trade.id} type={currentType} yourData={userData} trade={trade}/>
         })}
       </div>
-      {/* <Grid container columns={{ xs: 1 }}  style={tradeStyle[0]} className='trade-list'>
-      </Grid>
-      <Grid container columns={{ xs: 1 }}  style={tradeStyle[1]} className='offer-list'>
-      </Grid> */}
 
     </div>
   );
