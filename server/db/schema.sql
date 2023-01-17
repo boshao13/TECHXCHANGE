@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS techxchange;
 
 CREATE DATABASE techxchange;
 USE techxchange;
