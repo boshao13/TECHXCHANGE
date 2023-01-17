@@ -5,23 +5,24 @@ import {
 import HomeIcon from '@mui/icons-material/Home';
 import { Add, Home } from '@mui/icons-material';
 import axios from 'axios';
-import { getUserFromID } from '../../API.js';
+import * as API from '../../API.js';
 import ProposeTradeForm from './ProposeTradeForm';
 import {styled} from '@mui/system';
 
 
 function Item(props) {
-  const [userId, setUserId] = useState(props.item.user_id);
+  const [userId, setUserId] = useState(props.userId);
   const [currentUserDescription, setCurrentUserDescription] = useState('');
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [profilePhotoThumbnail, setProfilePhotoThumbnail] = useState('');
   const [currentUserLocation, setCurrentUserLocation] = useState({});
 
   const [itemId, setItemId] = useState(props.item.id);
-  const [itemPhoto, setItemPhoto] = useState(props.item.thumbnail);
+  const [itemPhoto, setItemPhoto] = useState(props.item.thumbnail_url);
   const [itemTitle, setItemTitle] = useState(props.item.name);
   const [itemDetails, setItemDetails] = useState(props.item.description);
   const [itemCondition, setItemCondition] = useState(props.item.condition);
+
 
   const Box1 = styled('div')({
     backgroundColor: '#CAF0F8',
@@ -50,14 +51,15 @@ function Item(props) {
   })
 
   useEffect(() => {
-    getUserFromID(userId)
+    API.getUserFromID(userId)
     .then((response) => {
-    console.log('User Info: ', response.data)
+    console.log('Zip: ', response.data);
+    console.log('User Info: ', response.data[0])
     console.log('Item Id: ', itemId);
-    setCurrentUserDescription(response.data.description)
-    setCurrentUserEmail(response.data.email)
-    setProfilePhotoThumbnail(response.data.thumbnail_url)
-    setCurrentUserLocation({ 'street': response.data.street, 'zip': response.data.zip_code })
+    setCurrentUserDescription(response.data[0].description)
+    setCurrentUserEmail(response.data[0].email)
+    setProfilePhotoThumbnail(response.data[0].thumbnail_url)
+    setCurrentUserLocation({ 'street': response.data[0].street, 'zip': response.data[0].zip_code })
     }).catch((error) => {
       console.log(error);
     })}, [itemId]);
@@ -119,6 +121,7 @@ function Item(props) {
           <Avatar id="profilePhotoThumbnail" alt="" src={profilePhotoThumbnail} />
           <Box id="userLocation">
             <Typography id="location"><u>Location</u>:</Typography>
+            {console.log(currentUserLocation.zip)}
             <Typography id="zip">{currentUserLocation.zip}</Typography>
           </Box>
         </Box1>
