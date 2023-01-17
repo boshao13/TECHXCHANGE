@@ -95,3 +95,8 @@
 .toggle-text {
   font-size: 1rem;
 }
+
+html {
+  background-color: #CAF0F8;
+  font-family: 'Inter', sans-serif;
+}

@@ -1,47 +1,78 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-plusplus */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable arrow-body-style */
-/* eslint-disable semi */
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable spaced-comment */
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Button, IconButton, HomeIcon, AddIcon, Avatar, Box,
+  Button, IconButton, Avatar, Box, Typography, Container
 } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { Add, Home } from '@mui/icons-material';
 import axios from 'axios';
+import { getUserFromID } from '../../API.js';
+import ProposeTradeForm from './ProposeTradeForm';
+import {styled} from '@mui/system';
 
-export default function Item(props) {
-  const [userId, setUserId] = useState(props.item.userID);
+
+function Item(props) {
+  const [userId, setUserId] = useState(props.item.user_id);
+  const [currentUserDescription, setCurrentUserDescription] = useState('');
+  const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [profilePhotoThumbnail, setProfilePhotoThumbnail] = useState('');
-  const [userLocation, setUserLocation] = useState('');
-  // const [userName, setUserName] = useState('');
+  const [currentUserLocation, setCurrentUserLocation] = useState({});
 
-  const [itemId, setItemId] = useState(props.item.ID);
+  const [itemId, setItemId] = useState(props.item.id);
   const [itemPhoto, setItemPhoto] = useState(props.item.thumbnail);
-  const [itemTitle, setItemTitle] = useState(props.item.itemName);
+  const [itemTitle, setItemTitle] = useState(props.item.name);
   const [itemDetails, setItemDetails] = useState(props.item.description);
   const [itemCondition, setItemCondition] = useState(props.item.condition);
 
+  const Box1 = styled('div')({
+    backgroundColor: '#CAF0F8',
+    alignContent: 'center',
+    flexWrap: 'wrap',
+    display: 'flex',
+    flexDirection: 'column' ,
+    justifyContent: 'flex-start',
+    boxShadow: `-5px -5px 10px rgba(255,255,255,0.8),
+    5px 5px 10px rgba(0,0,0,0.25)`,
+    borderRadius: '30px',
+    marginBottom: '20px',
+    // height: '25vh',
+    width: '100%',
+  });
+
+  const AddButton = styled('button')({
+    width: '100px',
+    height: '30px',
+    boxShadow: `-3px -3px 3px rgba(232,242,255,0.8),
+    5px 5px 10px rgba(0,0,0,0.25)`,
+    borderRadius: '30px',
+    backgroundColor: '#CAF0F8',
+    border: '4px solid #CAF0F8',
+    color: '#505050',
+  })
+
   useEffect(() => {
-    for (let i = 0; i < props.allUsers; i++) {
-      if (props.allUsers[i].ID === userId) {
-        setProfilePhotoThumbnail(props.allUsers[i].thumbnail);
-        setUserLocation(props.allUsers[i].location);
-        // setUserName(props.allUsers[i].name);
-      }
-    }
-  }, [props.item]);
+    getUserFromID(userId)
+    .then((response) => {
+    console.log('User Info: ', response.data)
+    console.log('Item Id: ', itemId);
+    setCurrentUserDescription(response.data.description)
+    setCurrentUserEmail(response.data.email)
+    setProfilePhotoThumbnail(response.data.thumbnail_url)
+    setCurrentUserLocation({ 'street': response.data.street, 'zip': response.data.zip_code })
+    }).catch((error) => {
+      console.log(error);
+    })}, [itemId]);
+
 
   const onProposeTradeClick = (e) => {
     e.preventDefault();
+    props.setDisplayItemDetails(false);
+    props.setDisplayProposeTradeForm(true);
     // navigate to proposal form
   };
 
   const onHomeButtonClick = (e) => {
     e.preventDefault();
+    props.setDisplayItemDetails(false);
     // navigate to profile page
   };
 
@@ -60,47 +91,54 @@ export default function Item(props) {
   };
 
   return (
-    <Container id="itemDetails">
-      <Box id="topButtons">
-        <IconButton id="homeButton" onClick={(e) => { onHomeButtonClick(e); }}>
-          <HomeIcon />
-        </IconButton>
-        <IconButton id="addBookmarkButton" onClick={(e) => { onAddButtonClick(e); }}>
-          <AddIcon />
-        </IconButton>
-      </Box>
+    <Container>
+      <ProposeTradeForm displayProposeTradeForm={props.displayProposeTradeForm} currentUserId={props.currentUserId} userId={userId} itemPhoto={itemPhoto} itemId={itemId}/>
+      <Box id="itemDetails" sx={props.displayItemDetails ? {display: 'block'} : {display: 'none'}}>
+        <Box id="topButtons" sx={{ display: 'flex', justifyContent: 'space-between'}}>
+          <IconButton
+            id="homeButton"
+            onClick={(e) => { onHomeButtonClick(e); }}>
+            <Home />
+          </IconButton>
+          <IconButton
+            id="addBookmarkButton"
+            onClick={(e) => { onAddButtonClick(e); }}>
+            <Add/>
+          </IconButton>
+        </Box>
 
-      <Box id="itemPhotoBox">
-        <img id="itemPhoto" src={itemPhoto} alt="" />
-      </Box>
+        <Box1 id="itemPhotoBox">
+          <img id="itemPhoto" style={{ height:'200px', width: '290px', borderRadius: '30px'}} src={itemPhoto} alt="" />
+        </Box1>
 
-      <Box id="itemTitle">
-        {itemTitle}
-      </Box>
+        <Box1 id="itemTitleBox">
+          <Typography id="itemTitle" variant="h3">{itemTitle}</Typography>
+        </Box1>
 
-      <Box id="userInfo">
-        <Avatar id="profilePhotoThumbnail" alt="" src={profilePhotoThumbnail} />
-        {/* <Box id="userName">
-          {userName}
-        </Box> */}
-        <Box id="userLocation">
-          {userLocation}
+        <Box1 id="userInfo" >
+          <Avatar id="profilePhotoThumbnail" alt="" src={profilePhotoThumbnail} />
+          <Box id="userLocation">
+            <Typography id="location"><u>Location</u>:</Typography>
+            <Typography id="zip">{currentUserLocation.zip}</Typography>
+          </Box>
+        </Box1>
+
+        <Box1 id="itemDetails" >
+          <Typography id="details" ><u>Details</u>: {itemDetails}</Typography>
+        </Box1>
+
+        <Box1 id="itemCondition" >
+          <Typography id="details"><u>Condition</u>: {itemCondition}</Typography>
+        </Box1>
+
+        <Box id="proposeTrade">
+          <AddButton id="goToProposeTradeForm" onClick={(e) => { onProposeTradeClick(e); }}>
+            Propose Trade
+          </AddButton>
         </Box>
       </Box>
-
-      <Box id="itemDetails">
-        {itemDetails}
-      </Box>
-
-      <Box id="itemCondition">
-        {itemCondition}
-      </Box>
-
-      <Box id="proposeTrade">
-        <Button id="proposeTradeButton" onClick={(e) => { onProposeTradeClick(e); }}>
-          Propose Trade
-        </Button>
-      </Box>
     </Container>
-  );
+    );
 }
+
+export default Item;
