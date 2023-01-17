@@ -17,7 +17,7 @@ function Item(props) {
   const [profilePhotoThumbnail, setProfilePhotoThumbnail] = useState('');
   const [currentUserLocation, setCurrentUserLocation] = useState({});
 
-  const [itemId, setItemId] = useState(props.item.Id);
+  const [itemId, setItemId] = useState(props.item.id);
   const [itemPhoto, setItemPhoto] = useState(props.item.thumbnail);
   const [itemTitle, setItemTitle] = useState(props.item.name);
   const [itemDetails, setItemDetails] = useState(props.item.description);
@@ -53,6 +53,7 @@ function Item(props) {
     getUserFromID(userId)
     .then((response) => {
     console.log('User Info: ', response.data)
+    console.log('Item Id: ', itemId);
     setCurrentUserDescription(response.data.description)
     setCurrentUserEmail(response.data.email)
     setProfilePhotoThumbnail(response.data.thumbnail_url)

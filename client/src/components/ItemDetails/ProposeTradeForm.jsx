@@ -12,7 +12,7 @@ function ProposeTradeForm(props) {
   const [proposeTradeObj, setProposeTradeObj] = useState({});
 
   useEffect(() => {
-    getItemFromUserID(props.currentUserId)
+    getItemsFromUserID(props.currentUserId)
     .then((response) => {
       setUserDevices(response.data)
       }).catch((error) => {
@@ -31,7 +31,7 @@ function ProposeTradeForm(props) {
       "proposer_id": props.currentUserId,
       "proposer_device_id": selectedUserDevice,
       "receiver_id": props.userId,
-      "receiver_device_id": 5,
+      "receiver_device_id": props.itemId,
       "status": "proposed"
     });
   };
