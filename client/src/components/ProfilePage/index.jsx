@@ -44,7 +44,7 @@ const avatarSX = {
 
 
 function Profile() {
-  const [addItem, setAddItem] = useState(true);
+  const [addItem, setAddItem] = useState(false);
   return (
     <>
       {!addItem

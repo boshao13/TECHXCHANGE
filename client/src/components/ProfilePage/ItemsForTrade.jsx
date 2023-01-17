@@ -15,18 +15,17 @@ const Box1 = styled('div')({
   boxShadow: `-5px -5px 10px rgba(255,255,255,0.8),
   5px 5px 10px rgba(0,0,0,0.25)`,
   borderRadius: '30px',
-  marginBottom: '20px',
-  height: '25vh',
+  marginBottom: '35px',
+  paddingBottom: '20px',
   width: '100%',
+
 });
 const Box2 = styled('div')({
   backgroundColor: '#CAF0F8',
-  alignContent: 'center',
+  alignContent: 'flex-end',
   flexWrap: 'wrap',
   display: 'flex',
-
   justifyContent: 'center',
-
 
 
 });
@@ -41,10 +40,12 @@ const AddButton = styled('button')({
   height: '25px',
   boxShadow: `5px 5px 10px #9ab6bc,
   -5px -5px 10px #faffff`,
-  borderRadius: '30px',
+  borderRadius: '10px',
   backgroundColor: '#CAF0F8',
   border: 'none',
   color: '#505050',
+  marginTop: '15px'
+
 })
 const buttonSX = {
   "&:hover": {
@@ -59,11 +60,8 @@ function ItemsForTrade({ setAddItem, addItem }) {
     setAddItem(!addItem);
   };
   return (
-
-
       <Box1 >
-        <Title>Items for Trade</Title>
-
+        <Title sx={{color: '#505050',}}>Items for Trade</Title>
         <ItemEntry />
         <Box2>
         <AddButton sx={buttonSX} onClick={handleClick} variant="contained" endIcon={<AddIcon />}>
