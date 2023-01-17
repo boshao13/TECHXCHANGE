@@ -9,35 +9,54 @@ module.exports.Shared = {
   getItemFromID: async function(req,res) {
     const itemID = req.params.itemID;
     const qString = `SELECT * FROM devices WHERE id = ${itemID}`;
-    console.log(itemID);
-    try {
-      const connection = await db.getConnection();
-      const results = await connection.query(qString);
-      const [[sendBack]] = results;
-      res.status(200).json(sendBack);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send('error:', error)
-    }
+    // console.log(itemID);
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      // console.log('promise style results\n', results);
+      res.status(200).send(results);
+    })
+    // try {
+    //   const connection = await db.pool.getConnection();
+    //   const results = await connection.query(qString);
+    //   const [[sendBack]] = results;
+    //   res.status(200).json(sendBack);
+    // } catch (error) {
+    //   console.log(error);
+    //   res.status(500).send('error:', error)
+    // }
 
   },
-  getItemFromUserID: async function(req,res) {
+  getItemsFromUserID: async function(req,res) {
     const userID = req.params.userID;
     const qString = `SELECT * FROM devices WHERE user_id = ${userID}`;
-    console.log(userID);
-    try {
-      const connection = await db.getConnection();
-      const results = await connection.query(qString);
+    // console.log(userID);
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      // console.log('promise style results\n', results);
+      res.status(200).send(results);
+    })
 
-      const [sendBack] = results;
-      console.log(sendBack);
-      res.status(200).json(sendBack);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send('error:', error)
-    }
+    // try {
+    //   const connection = await db.pool.getConnection();
+    //   const results = await connection.query(qString);
 
-  },
+    //   const [sendBack] = results;
+    //   // console.log(sendBack);
+    //   res.status(200).json(sendBack);
+    // } catch (error) {
+    //   console.log(error);
+    //   res.status(500).send('error:', error)
+    // }
+
+  }
 
 
 

@@ -41,6 +41,7 @@ const avatarSX = {
   border: '4px solid #CAF0F8',
 }
 
+
 function Profile({allItems}) {
   const [addItem, setAddItem] = useState(false);
   const [userName, setUserName] = useState('')
@@ -79,6 +80,7 @@ function Profile({allItems}) {
             <AddItem setAddItem={setAddItem} addItem={addItem} />
           )}
     </>
+
   );
 }
 

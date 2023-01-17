@@ -1,12 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
 
-const Auth = () => {
+import Login from './Login';
+import Register from './Register';
+
+export default function Auth({ props }) {
+  const [register, setRegister] = useState(false);
+
   return (
-    <div>Login & Register
-
-
-    </div>
-  )
-};
-
-export default Auth;
+    <Box
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {
+        !register ? <Login props={{ ...props, setRegister }} />
+          : <Register props={{ ...props, setRegister }} />
+      }
+    </Box>
+  );
+}

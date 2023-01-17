@@ -6,8 +6,9 @@ router.post('/users', Users.createUser);
 router.post('/users/auth', Users.authUser);
 
 router.post('/trades/involved', Trades.getInvolvedTrades);//WORKING
+router.get('/trade/:tradeID', Trades.getTradeFromID);//..........
 router.get('/item/:itemID', Shared.getItemFromID);//WORKING
-router.get('/item/user/:userID', Shared.getItemFromUserID); //WORKING
+router.get('/items/user/:userID', Shared.getItemsFromUserID); //WORKING
 router.put('/trade/status/:tradeID/:newStatus', Trades.updateTradeFromID);//WORKING
 router.post('/trades', Trades.createNewTrade); //WORKING
 

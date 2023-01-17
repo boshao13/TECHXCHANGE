@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //all functions are promises, so "THEN-able"
 
-export default function axiosCall(method, endpoint, data) {
+ function axiosCall(method, endpoint, data) {
   const url = `http://localhost:8080${endpoint}`;
   return new Promise((resolve, reject) => {
     axios({method, url, data })
@@ -53,9 +53,9 @@ export function getItemFromID(itemID) {
   })//end Promise
 }
 
-export function getItemFromUserID(userID) {
+export function getItemsFromUserID(userID) {
   return new Promise((resolve,reject) => {
-    axiosCall('get', `/item/user/${userID}`)
+    axiosCall('get', `/items/user/${userID}`)
     .then(res => {
       resolve(res);
     })
@@ -76,12 +76,24 @@ export function getUserFromID(userID) {
     })
   })//end Promise
 }
+export function getTradeFromID(tradeID) {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/trade/${tradeID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
 
 export function updateTradeFromID(tradeID, currentTradeStatus) {
   const statusList = ['proposed', 'approved', 'completed'];
-  if(currentTradeStatus === 'completed') {return currentTradeStatus};
   var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
   return new Promise((resolve,reject) => {
+    if(currentTradeStatus === 'completed') {resolve(currentTradeStatus);  return};
+
     axiosCall('put', `/trade/status/${tradeID}/${newStatus}`)
     .then(res => {
       resolve({message: 'successful', newStatus});
