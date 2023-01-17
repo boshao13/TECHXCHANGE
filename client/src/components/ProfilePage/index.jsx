@@ -41,6 +41,7 @@ const avatarSX = {
   border: '4px solid #CAF0F8',
 }
 
+
 function Profile() {
   const [addItem, setAddItem] = useState(true);
   return (

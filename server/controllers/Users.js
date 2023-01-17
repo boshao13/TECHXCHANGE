@@ -48,7 +48,7 @@ module.exports = {
     const { params: { id } } = req;
 
     try {
-      const query = `SELECT * FROM users WHERE id = ${id}`;
+      const query = `SELECT * FROM users WHERE id = ${id};`;
       const conn = await db.getConnection();
       const [[user]] = await conn.query(query);
 
