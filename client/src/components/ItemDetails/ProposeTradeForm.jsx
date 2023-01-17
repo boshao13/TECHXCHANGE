@@ -3,7 +3,7 @@ import {
   Button, IconButton, Avatar, Box, Typography, Container
 } from '@mui/material';
 import axios from 'axios';
-import { getItemFromUserID, createTrade } from '../../API.js';
+import { getItemsFromUserID, createTrade } from '../../API.js';
 
 function ProposeTradeForm(props) {
 

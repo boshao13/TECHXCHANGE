@@ -7,7 +7,7 @@ import { Add, Home } from '@mui/icons-material';
 import axios from 'axios';
 import { getUserFromID } from '../../API.js';
 import ProposeTradeForm from './ProposeTradeForm';
-import {styled} from '@mui/system'
+import {styled} from '@mui/system';
 
 
 function Item(props) {
