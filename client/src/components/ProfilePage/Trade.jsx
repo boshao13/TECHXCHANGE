@@ -2,7 +2,7 @@ import React from 'react'
 import * as API from '../../API.js'
 import Avatar from '@mui/material/Avatar';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import {Card, Box} from '@mui/material/';
+import {Card, Box, Button} from '@mui/material/';
 
 
 const Trade = ({yourData, type, trade}) => {
@@ -11,6 +11,7 @@ const Trade = ({yourData, type, trade}) => {
   const [yourItem, setYourItem] = React.useState({});
   const [theirItem, setTheirItem] = React.useState({});
 
+  const [btnDisabled, setBtnDisabled] = React.useState();
   const [btnContent, setBtnContent] = React.useState('');
   // trade = {id,
   //   proposer_id, proposer_device_id,
@@ -24,6 +25,13 @@ const Trade = ({yourData, type, trade}) => {
   React.useEffect(() => { //set Trade
     console.log('YOUR ITEM', yourItem);
   }, [yourItem]);
+  React.useEffect(() => { //set Trade
+    if(btnContent.slice(0,4) === 'Pend') {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  }, [btnContent]);
 
   React.useEffect(() => { //set Trade
     if(trade) {
@@ -35,13 +43,13 @@ const Trade = ({yourData, type, trade}) => {
     //update BUTTON
     if(thisTrade.status) {
       if(thisTrade.status === 'proposed' && type === 'trade') {
-        setBtnContent('Waiting for Approval..');
+        setBtnContent('Pending Approval..');
       } else if (thisTrade.status === 'proposed' && type === 'offer') {
         setBtnContent('APPROVE');
       } else if (thisTrade.status === 'approved' && type === 'trade') {
         setBtnContent('ACCEPT');
       } else if(thisTrade.status === 'approved' && type === 'offer') {
-        setBtnContent('Waiting for Accept..');
+        setBtnContent('Pending Accept..');
       } else {
         setBtnContent('Completed');
       }
@@ -128,7 +136,8 @@ React.useEffect(() => {
         </div>
       </div>
       <div className='btn-trade-box'>
-      <button className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</button>
+      {/* <button className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</button> */}
+      <Button disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
       </div>
     </Card>
   )
