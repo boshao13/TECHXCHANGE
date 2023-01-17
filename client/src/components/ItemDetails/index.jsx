@@ -53,9 +53,6 @@ function Item(props) {
   useEffect(() => {
     API.getUserFromID(userId)
     .then((response) => {
-    console.log('Zip: ', response.data);
-    console.log('User Info: ', response.data[0])
-    console.log('Item Id: ', itemId);
     setCurrentUserDescription(response.data[0].description)
     setCurrentUserEmail(response.data[0].email)
     setProfilePhotoThumbnail(response.data[0].thumbnail_url)
@@ -121,7 +118,6 @@ function Item(props) {
           <Avatar id="profilePhotoThumbnail" alt="" src={profilePhotoThumbnail} />
           <Box id="userLocation">
             <Typography id="location"><u>Location</u>:</Typography>
-            {console.log(currentUserLocation.zip)}
             <Typography id="zip">{currentUserLocation.zip}</Typography>
           </Box>
         </Box1>
