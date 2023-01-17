@@ -42,21 +42,22 @@ const avatarSX = {
 }
 
 
-function Profile({allItems}) {
+function Profile({props}) {
   const [addItem, setAddItem] = useState(false);
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
   useEffect(()=> {
+    console.log('PROPS', props.user)
     axios.get('http://localhost:8080/users/user/1')
     .then((response)=> {
       console.log(response.data)
       setUserName(response.data.name)
       setUserImage(response.data.thumbnail_url)
       setUserDescription(response.data.description)
-      console.log('ITEMS ARE', allItems)
+      console.log('ITEMS ARE')
     })
-  },[allItems])
+  },[props])
 
   return (
     <>
@@ -69,7 +70,7 @@ function Profile({allItems}) {
               <div>{userDescription}</div>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades />
+            <PendingTrades userData={props.user} />
             <Box sx={{ bgcolor: '#CAF0F8', height: '20vh' }}>
               bookmarked items
             </Box>
