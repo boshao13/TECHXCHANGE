@@ -5,3 +5,8 @@
  display: flex;
  justify-content: space-between;
 }
+
+html {
+  background-color: #CAF0F8;
+  font-family: 'Inter', sans-serif;
+}
