@@ -45,13 +45,15 @@ React.useEffect(() => { //sets Trades
 
 React.useEffect(() => { //sets Trades
   if(yourTrades.length && yourOffers.length) {
-    if(currentType === 'trades') {
+    if(currentType === 'trade' && yourTrades.length) {
       setShownTrades(yourTrades);
-    } else {
-      setShownTrades(yourTrades);
+      // console.log('updated shown trades with, ', yourTrades);
+    } else if(currentType === 'offer' && yourOffers.length) {
+      setShownTrades(yourOffers);
     }
   }
 }, [yourTrades, yourOffers, currentType])
+
 
 //First
 const getSetTrades = () => {
@@ -71,8 +73,8 @@ API.getAllInvolvedTrades(userData.id)
   }); //end forEach
   setYourTrades(tempTrades);
   setYourOffers(tempOffers);
-  console.log('Trades\n', tempTrades);
-  console.log('Offers\n', tempOffers);
+  // console.log('Trades\n', tempTrades);
+  // console.log('Offers\n', tempOffers);
   if(errTrades.length) {console.log('error trades involved', errTrades)}
 }) //Involved Trades set
 .catch(err => {
@@ -81,7 +83,7 @@ API.getAllInvolvedTrades(userData.id)
 };
 
 const toggleTrade = () => {
-  console.log('toggling trade type');
+  // console.log('toggling trade type');
   var type = currentType === 'trade' ? 'offer' : 'trade';
   setCurrentType(type);
   // setTradeStyle([tradeStyle[1], tradeStyle[0]]);
@@ -91,11 +93,11 @@ const toggleTrade = () => {
   return (
     <div id='trades'>
       <div className='trade-header'>
-        <span>
-          <Switch defaultChecked onClick={e => {e.preventDefault(); toggleTrade()}} className="toggle-trade"/>
+        <span className="toggle-text">
+          <Switch defaultChecked onClick={e => {toggleTrade()}} />
           <span>{typeHTML}</span>
         </span>
-        <RefreshIcon onClick={e => {e.preventDefault(); getSetTrades()}} className="refresh-trades"/>
+        <RefreshIcon fontSize='inherit' onClick={e => {getSetTrades()}} className="refresh-trades"/>
       </div>
       <div className='trade-list'>
         {shownTrades.map(trade => {

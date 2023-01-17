@@ -90,9 +90,10 @@ export function getTradeFromID(tradeID) {
 
 export function updateTradeFromID(tradeID, currentTradeStatus) {
   const statusList = ['proposed', 'approved', 'completed'];
-  if(currentTradeStatus === 'completed') {return currentTradeStatus};
   var newStatus = statusList[statusList.indexOf(currentTradeStatus) + 1];
   return new Promise((resolve,reject) => {
+    if(currentTradeStatus === 'completed') {resolve(currentTradeStatus);  return};
+
     axiosCall('put', `/trade/status/${tradeID}/${newStatus}`)
     .then(res => {
       resolve({message: 'successful', newStatus});

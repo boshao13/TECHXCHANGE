@@ -39,3 +39,9 @@ VALUES (2, 4, 3, 5,'approved');
 
 INSERT INTO trades (`proposer_id`, `proposer_device_id`, `receiver_id`, `receiver_device_id`, `status`)
 VALUES (3, 6, 1, 2,'proposed');
+
+INSERT INTO trades (`proposer_id`, `proposer_device_id`, `receiver_id`, `receiver_device_id`, `status`)
+VALUES (1, 1, 2, 4,'proposed');
+
+INSERT INTO trades (`proposer_id`, `proposer_device_id`, `receiver_id`, `receiver_device_id`, `status`)
+VALUES (1, 2, 3, 5,'proposed');
