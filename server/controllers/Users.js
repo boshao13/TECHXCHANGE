@@ -6,8 +6,9 @@ module.exports = {
     const { body: data } = req;
 
     try {
-      const conn = await db.pool.getConnection();
-      const [[user]] = await conn.query(`SELECT * FROM users WHERE email = "${data.email}";`);
+      const query = `SELECT * FROM users WHERE email = "${data.email}";`;
+      const conn = db.promise();
+      const [[user]] = await conn.query(query);
       if (!user) {
         res.status(200).json(null);
         return;
@@ -31,7 +32,7 @@ module.exports = {
       const hash = await bcrypt.hash(data.password, salt);
 
       let query = `INSERT INTO users (name, email, password, description, street, zip_code) VALUES ("${data.name}", "${data.email}", "${hash}", "${description}", "${data.street}", "${data.zip_code}");`;
-      const conn = await db.pool.getConnection();
+      const conn = db.promise();
       await conn.execute(query);
 
       query = `SELECT * FROM users WHERE email = "${data.email}"`;
