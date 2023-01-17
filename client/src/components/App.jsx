@@ -1,45 +1,30 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/extensions */
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Profile from './ProfilePage/index';
-import Item from './ItemDetails/index.jsx';
-import images from '../../assets/images.js';
-import * as API from '../API.js';
+import React, { useState } from 'react';
+
+import Auth from './Auth';
+import Profile from './ProfilePage';
 
 export default function App() {
-  const [user, setUser] = useState({});
-  const [userItems, setUserItems] = useState([]);
+  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [view, setView] = useState({ name: 'Auth', props: { setUser } });
 
-  useEffect(() => {
-    var userIDToFetch = 1;
-    API.getUserFromID(1)
-    .then((response) => {
-      console.log(`USER DATA from ID ${userIDToFetch}\n`, response.data);
-      setUser(response.data);
-    }).catch((error) => {
-      console.log(error);
-    });
-  }, []);
-
-  useEffect(() => {
-    if(user.id) {
-      API.getItemsFromUserID(user.id)
-        .then((response) => {
-          // console.log('ITEMS FROM USER\n', response.data);
-          setUserItems(response.data);
-        }).catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [user]);
-
-  return (
-    <>
-    <Profile user={user}/>
-    </>
+  const changeView = (viewName, viewProps, isCallback = false) => (
+    !isCallback ? setView({ name: viewName, props: viewProps })
+      : () => setView({ name: viewProps, props: viewName })
   );
+
+  const renderView = () => {
+    switch (view.name) {
+      case 'Auth':
+        if (!user) return <Auth props={view.props} />;
+        changeView('Profile', { user, changeView });
+        break;
+      case 'Profile':
+        return <Profile props={view.props} />;
+      default:
+        return null;
+    }
+    return null;
+  };
+
+  return renderView();
 }
-// COLORS
-// #03045E #0077B6 #00B4D8 #90E0EF #CAF0F8
