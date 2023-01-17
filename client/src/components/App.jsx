@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/extensions */
 import React, { useState, useEffect } from 'react';
+import $ from 'jquery';
 import axios from 'axios';
 import Profile from './ProfilePage/index';
 import Item from './ItemDetails/index.jsx';
@@ -12,16 +13,22 @@ export default function App() {
   const [user, setUser] = useState({});
   const [userItems, setUserItems] = useState([]);
 
+  console.log('App loaded...');
+
   useEffect(() => {
-    var userIDToFetch = 1;
-    API.getUserFromID(1)
+    console.log('getting user');
+    setTheUser(1);
+  }, []);
+
+  const setTheUser = (num) => {
+    API.getUserFromID(num)
     .then((response) => {
-      console.log(`USER DATA from ID ${userIDToFetch}\n`, response.data);
-      setUser(response.data);
+      console.log(`USER DATA from ID ${num}\n`, response.data[0]);
+      setUser(response.data[0]);
     }).catch((error) => {
       console.log(error);
     });
-  }, []);
+  };
 
   useEffect(() => {
     if(user.id) {
@@ -35,8 +42,18 @@ export default function App() {
     }
   }, [user]);
 
+  const setUserNow = () => {
+    setTheUser($('#select-user').val());
+  };
+
+
   return (
     <>
+    <select onChange={setUserNow} id='select-user'>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+    </select>
     <Profile user={user}/>
     </>
   );

@@ -5,6 +5,7 @@ import ItemsForTrade from './ItemsForTrade';
 import AddItem from './AddItem';
 import { styled } from '@mui/system'
 
+
 const PictureContainer = styled('div')({
   backgroundColor: '#CAF0F8',
   paddingTop: 0,
@@ -66,6 +67,7 @@ function Profile() {
             <AddItem setAddItem={setAddItem} addItem={addItem} />
           )}
     </>
+
   );
 }
 
