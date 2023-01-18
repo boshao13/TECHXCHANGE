@@ -2,6 +2,7 @@ const db = require('../db');
 
 module.exports.Users = require('./Users');
 module.exports.Trades = require('./Trades');
+module.exports.Bookmarks = require('./Bookmarks')
 
 
 module.exports.Shared = {

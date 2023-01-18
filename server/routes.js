@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Users, Trades, Shared } = require('./controllers');
+const { Users, Trades, Shared, Bookmarks } = require('./controllers');
 
 router.get('/users/user/:id', Users.getUser);
 router.post('/users', Users.createUser);
@@ -11,5 +11,7 @@ router.get('/item/:itemID', Shared.getItemFromID);//WORKING
 router.get('/items/user/:userID', Shared.getItemsFromUserID); //WORKING
 router.put('/trade/status/:tradeID/:newStatus', Trades.updateTradeFromID);//WORKING
 router.post('/trades', Trades.createNewTrade); //WORKING
+
+router.post('/bookmarks', Bookmarks.saveBookmark);
 
 module.exports = router;
