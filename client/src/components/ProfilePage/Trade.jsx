@@ -111,6 +111,12 @@ React.useEffect(() => {
 
 const rerouteToItem = (item) => {
   console.log('ITEM to route to', item);
+  console.log('changeView', changeView);
+  // var propsObj = {userId: yourData.id, item, setDisplayItemDetails, setDisplayProposeTradeForm, displayProposeTradeForm,
+  // currentUserId,
+  // displayItemDetails,};
+
+  // changeView('ItemDetails', propsObj)
 };
 
 

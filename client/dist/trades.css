@@ -105,6 +105,33 @@
   /* circle crop? */
 }
 
+@keyframes swipeUpFade {
+  from {transform: translate(0, 20px);}
+  to {transform: translate(0,0);}
+}
+
+.no-trades {
+  background-color: rgb(255, 255, 255);
+  color: rgb(164, 164, 164);
+  font-size: 1.7rem;
+  padding: 10%;
+  text-align: center;
+  animation-name: swipeUpFade;
+  animation-duration: 1s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .toggle-text {
   font-size: 1rem;
 }
