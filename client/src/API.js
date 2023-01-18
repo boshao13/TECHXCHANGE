@@ -65,6 +65,18 @@ export function getItemsFromUserID(userID) {
   })//end Promise
 }
 
+export function insertDevice(userID, dataObj) {
+  return new Promise((resolve,reject) => {
+    axiosCall('post', `/item/insert/${userID}`, dataObj)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+
 export function getUserFromID(userID) {
   return new Promise((resolve,reject) => {
     axiosCall('get', `/users/user/${userID}`)
@@ -79,6 +91,17 @@ export function getUserFromID(userID) {
 export function getTradeFromID(tradeID) {
   return new Promise((resolve,reject) => {
     axiosCall('get', `/trade/${tradeID}`)
+    .then(res => {
+      resolve(res);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })//end Promise
+}
+export function getAllUsers() {
+  return new Promise((resolve,reject) => {
+    axiosCall('get', `/users/all`)
     .then(res => {
       resolve(res);
     })

@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS techxchange;
 
 CREATE DATABASE techxchange;
 USE techxchange;
@@ -19,7 +20,7 @@ CREATE TABLE devices (
   `name` VARCHAR(255) NOT NULL,
   `thumbnail_url` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
-  `condition` VARCHAR(16) NOT NULL,
+  `item_condition` VARCHAR(16) NOT NULL,
   FOREIGN KEY (`user_id`) REFERENCES users (`id`)
 );
 

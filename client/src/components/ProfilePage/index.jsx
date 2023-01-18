@@ -6,7 +6,7 @@ import BookmarkedItems from './BookmarkedItems'
 import AddItem from './AddItem';
 import { styled } from '@mui/system';
 import axios from 'axios';
-
+///
 
 
 const PictureContainer = styled('div')({
@@ -55,21 +55,23 @@ const avatarSX = {
 }
 
 
-function Profile({props}) {
+function Profile({changeView, props}) {
   const [addItem, setAddItem] = useState(false);
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
 
 // props.changeView
-  useEffect(()=> {
+  useEffect(() => {
     axios.get('http://localhost:8080/users/user/2')
     .then((response)=> {
       console.log('data is', response.data[0])
       setUserName(response.data[0].name)
       setUserImage(response.data[0].thumbnail_url)
       setUserDescription(response.data[0].description)
-
+    })
+    .catch(err => {
+      console.error(err);
     })
   },[props])
 
@@ -86,7 +88,11 @@ function Profile({props}) {
               </Box2>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
+<<<<<<< HEAD
             {/* <PendingTrades  userData={props.user} /> */}
+=======
+            <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
+>>>>>>> fb6a92a72c8197e37eb2185c809b171daa0f4e79
             <BookmarkedItems/>
           </PictureContainer>
           )}

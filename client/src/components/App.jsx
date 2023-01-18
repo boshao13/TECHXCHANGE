@@ -20,7 +20,7 @@ export default function App() {
         changeView('Profile', { user, changeView });
         break;
       case 'Profile':
-        return <Profile props={view.props} />;
+        return <Profile changeView={changeView} props={view.props} />;
       case 'Map':
           return <Map1 />;
       default:
