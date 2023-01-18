@@ -70,6 +70,16 @@
   display: flex;
   justify-content: space-between;
 }
+.trade-box-anim {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.trade-box-anim.trade-box-1 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .swap {
   /* color: white; */
   font-size: 2rem;
