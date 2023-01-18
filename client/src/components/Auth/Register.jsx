@@ -3,17 +3,25 @@ import { Container, Paper, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios';
 
 export default function Register({ props: { setUser, setRegister } }) {
+
+
   const handleSubmit = async event => {
     event.preventDefault();
-
     const data = {
       email: event.target.email.value,
       password: event.target.password.value,
       name: event.target.name.value,
       description: event.target.description.value,
       street: event.target.street.value,
-      zip_code: event.target.zip_code.value,
+      city: event.target.city.value,
+      state: event.target.state.value,
     };
+
+    const GOOGLE_MAPS_KEY = 'AIzaSyAioaBzcUMBv_L3lsd9CoFbz4Gw-Xv-IhY'
+    const address = data.street + ' ' + data.city + ' ' + data.state + '&key=' + GOOGLE_MAPS_KEY
+
+    const coordinatesObj = await axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address)
+    console.log('OBJ IS', coordinatesObj)
     const { data: user } = await axios.post('/users', data);
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
@@ -49,7 +57,9 @@ export default function Register({ props: { setUser, setRegister } }) {
           <hr />
           <TextField type="text" label="Street" name="street" required sx={{ width: '100%' }} />
           <hr />
-          <TextField type="text" label="Zip Code" name="zip_code" required sx={{ width: '100%' }} />
+          <TextField type="text" label="City" name="city" required sx={{ width: '100%' }} />
+          <hr />
+          <TextField type="text" label="State" name="state" required sx={{ width: '100%' }} />
           <hr />
           <Button type="submit" variant="contained" sx={{ width: '100%' }}>Register</Button>
           <Typography

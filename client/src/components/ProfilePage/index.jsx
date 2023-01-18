@@ -86,7 +86,7 @@ function Profile({props}) {
               </Box2>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades  userData={props.user} />
+            {/* <PendingTrades  userData={props.user} /> */}
             <BookmarkedItems/>
           </PictureContainer>
           )}
