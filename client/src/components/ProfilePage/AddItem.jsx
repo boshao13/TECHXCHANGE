@@ -4,6 +4,10 @@ import {
 } from '@mui/material/';
 import { styled } from '@mui/system'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const Box1 = styled('div')({
   backgroundColor: '#CAF0F8',
@@ -59,15 +63,7 @@ const TextField1 = styled('input')({
   width: '250px',
 
 })
-const Select = styled('select')({
-  border: 'none',
-  height: '40px',
-  boxShadow: `5px 5px 10px #9ab6bc,
-  -5px -5px 10px #faffff`,
-  borderRadius: '10px',
-  backgroundColor: '#CAF0F8',
 
-})
 const Input = styled('input')({
   border: 'none',
   outline:'none',
@@ -93,6 +89,15 @@ const TextArea1 = styled('textarea')({
   inset -5px -5px 6px #f0ffff`,
   border:'none'
 })
+// const Select = styled('select')({
+//   border: 'none',
+//   height: '40px',
+//   // boxShadow: `5px 5px 10px #9ab6bc,
+//   // -5px -5px 10px #faffff`,
+//   borderRadius: '10px',
+//   backgroundColor: '#CAF0F8',
+
+// })
 
 function AddItem({ setAddItem, addItem }) {
   const [itemName, setItemName] = useState('');
@@ -112,21 +117,30 @@ function AddItem({ setAddItem, addItem }) {
       <SubTitle>Title
       </SubTitle>
         <TextField1 onChange={(e) => setItemName(e.target.value)} value={itemName} variant="filled" />
-        <SubTitle>Condition
-      </SubTitle>
-        <Select onChange={(e) => setItemCondition(e.target.value)} value={itemCondition}  >
-    <option>New</option>
-    <option>Like New</option>
-    <option>Good</option>
-    <option>Fair</option>
-    <option>Broken/For Parts</option>
-        </Select>
-
         <SubTitle>Image URL
       </SubTitle>
         <TextField1 onChange={(e) => setItemImage(e.target.value)} value={itemImage} variant="filled" />
-        <SubTitle>Description
+        <SubTitle>Condition
       </SubTitle>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <InputLabel id="demo-select-small">Condition</InputLabel>
+      <Select
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value='none'
+        label="Condition"
+
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={10}>Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+    </FormControl>
+        <SubTitle>Description
+        </SubTitle>
         <TextArea1 rows='10' onChange={(e) => setItemDescription(e.target.value)}  value={itemDescription} variant="filled" />
         <Box2>
         <SubmitButton >Submit</SubmitButton>

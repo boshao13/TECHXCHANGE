@@ -20,8 +20,8 @@ const Box2 = styled('div')({
   paddingLeft: '20px',
   paddingTop: '18px',
   background: '#CAF0F8',
-  // boxShadow: `inset 5px 5px 6px #a4c2c9,
-  // inset -5px -5px 6px #f0ffff`,
+  boxShadow: `inset 2px 2px 3px #a4c2c9,
+  inset -2px -2px 3px #f0ffff`,
   fontSize:'smaller'
 
 })
@@ -39,9 +39,9 @@ const avatarSX = {
   inset -2px -2px 5px rgba(255,255,255,0.6),
   inset 2px 2px 4px rgba(0,0,0,0.3)`,
   marginTop: '5px',
-  width: '65px',
-  height: '65px',
-  border: '4px solid #CAF0F8',
+  width: '75px',
+  height: '75px',
+  // border: '4px solid #CAF0F8',
   marginRight: '10px',
   marginLeft: '-8px',
 }
