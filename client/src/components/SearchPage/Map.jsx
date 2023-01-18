@@ -1,52 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
-import { Canvas, useLoader} from '@react-three/fiber'
-import {Stars, OrbitControls,} from '@react-three/drei'
+import DeckGL, {GeoJsonLayer} from 'deck.gl';
+import { Map } from 'react-map-gl'
+import DATA from './address.json'
+import 'mapbox-gl/dist/mapbox-gl.css';
+const ACCESS_TOKEN = 'pk.eyJ1IjoiYm9zaGFvMTMiLCJhIjoiY2xkMTgya2JhMXZkYTNudDdrYTQ1M25kdSJ9.DsCvNLZe6sZ1-zId4C-eIA'
+const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
+const INITIAL_VIEW_STATE = {
+  latitude: 39.8283,
+  longitude: -98.5795,
+  zoom: 3,
+  bearing: 0,
+  pitch: 30
+};
 
-import * as THREE from 'three'
-
-const Container1 = styled('div')({
-background: 'black',
-width: '100vw',
-height: '100vh',
+const Title = styled('div')({
+  position: 'absolute',
+  top: '80px',
+  left: '155px'
 })
+function Map1() {
 
-function Sphere() {
-
-  return (
-    <mesh visible userData={{ test: "hello" }} position={[0, 0, 0]} castShadow>
-      <sphereGeometry attach="geometry" args={[1, 16, 16]} />
-      <meshStandardMaterial
-        attach="material"
-        color="white"
-        transparent
-        roughness={0.1}
-        metalness={0.1}
-      />
-    </mesh>
-  );
-}
-function Map() {
+  const onClick =info => {
+    if(info.object) {
+      console.log(info.object.properties.Name)
+    }
+  }
+  const layers = [
+    new GeoJsonLayer({
+      id: 'people',
+      data: DATA,
+      filled: true,
+      pointRadiusMinPixels: 5,
+      pointRadiusScale: 1,
+      getPointRadius: f => 5,
+      getFillColor: [86, 144, 58, 250],
+      pickable: true,
+      autoHighlight: true,
+      onClick
+    })
+  ]
   return (
     <>
-     <div> map</div>
-    <Canvas style={{
-     width: '100vw',
-     height: '100vh',
-     background: 'black',
-    }}>
-      <Stars/>
 
-      <OrbitControls target={[0,0,0]}/>
-      <Sphere />
-
-    </Canvas>
-
-
-
-
+     <DeckGL
+     initialViewState={INITIAL_VIEW_STATE}
+     controller={true}
+     layers={layers}>
+       <Title>TECH MAP</Title>
+      <Map mapStyle={MAP_STYLE} mapboxAccessToken={ACCESS_TOKEN}/>
+     </DeckGL>
     </>
   )
 }
 
-export default Map;
+export default Map1;
