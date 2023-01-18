@@ -18,11 +18,12 @@ const Trade = ({yourData, type, trade}) => {
 
   const [btnDisabled, setBtnDisabled] = React.useState();
   const [btnContent, setBtnContent] = React.useState('');
-
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => { //set Trade
-    // console.log('YOUR ITEM', yourItem);
-  }, [yourItem]);
+      setIsMounted(true);
+  }, []);
+
   React.useEffect(() => { //set btnContent
     if(btnContent.slice(0,4) === 'Pend' || btnContent.slice(0,4) === 'Comp') {
       setBtnDisabled(true);
@@ -108,8 +109,10 @@ React.useEffect(() => {
 
 
 
-  return (
-    <Card className='trade-box'>
+return (
+  <div className={`trade-box-anim ${isMounted && 'trade-box-1'}`}>
+
+  <Card className='trade-box'>
       <div className='trade-your-item'>
         <Avatar sx={{width: 50, height: 50}} className='avatar1' src={yourData.thumbnail_url}/>
         <div className='img-box'>
@@ -129,7 +132,8 @@ React.useEffect(() => {
       <div className='btn-trade-box'>
       <Button sx={{width: '90%'}} disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
       </div>
-    </Card>
+  </Card>
+  </div>
   )
 };
 
