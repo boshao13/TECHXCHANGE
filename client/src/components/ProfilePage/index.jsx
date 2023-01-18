@@ -56,7 +56,7 @@ function Profile({props}) {
   useEffect(()=> {
     axios.get('http://localhost:8080/users/user/1')
     .then((response)=> {
-      console.log('data is', response.data)
+      console.log('data is', response.data[0])
       setUserName(response.data[0].name)
       setUserImage(response.data[0].thumbnail_url)
       setUserDescription(response.data[0].description)
