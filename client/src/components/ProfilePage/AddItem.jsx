@@ -114,11 +114,7 @@ function AddItem({ setAddItem, addItem }) {
         <TextField1 onChange={(e) => setItemName(e.target.value)} value={itemName} variant="filled" />
         <SubTitle>Condition
       </SubTitle>
-
-
         <Select onChange={(e) => setItemCondition(e.target.value)} value={itemCondition}  >
-
-
     <option>New</option>
     <option>Like New</option>
     <option>Good</option>

@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 0,
+      "properties": {
+        "Name": "Susan IPHONE XR",
+        "device": "iphone"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.13112956925647,
+          42.32550867371509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+
+        "Name": "JohnDoe MACBOOK PRO"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.14358360598474,
+          39.93437740957208
+        ]
+      }
+    }]}
