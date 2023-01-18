@@ -4,6 +4,11 @@ import Avatar from '@mui/material/Avatar';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import {Card, Box, Button} from '@mui/material/';
 
+// trade = {id,
+//   proposer_id, proposer_device_id,
+//   receiver_id, receiver_device_id,
+//   status}
+// console.log('loading Trades for type...', type, thisTrade);
 
 const Trade = ({yourData, type, trade}) => {
   const [thisTrade, setThisTrade] = React.useState({});
@@ -13,27 +18,20 @@ const Trade = ({yourData, type, trade}) => {
 
   const [btnDisabled, setBtnDisabled] = React.useState();
   const [btnContent, setBtnContent] = React.useState('');
-  // trade = {id,
-  //   proposer_id, proposer_device_id,
-  //   receiver_id, receiver_device_id,
-  //   status}
-  // console.log('loading Trades for type...', type, thisTrade);
-
-
 
 
   React.useEffect(() => { //set Trade
-    console.log('YOUR ITEM', yourItem);
+    // console.log('YOUR ITEM', yourItem);
   }, [yourItem]);
-  React.useEffect(() => { //set Trade
-    if(btnContent.slice(0,4) === 'Pend') {
+  React.useEffect(() => { //set btnContent
+    if(btnContent.slice(0,4) === 'Pend' || btnContent.slice(0,4) === 'Comp') {
       setBtnDisabled(true);
     } else {
       setBtnDisabled(false);
     }
   }, [btnContent]);
 
-  React.useEffect(() => { //set Trade
+  React.useEffect(() => { //update this trade
     if(trade) {
       setThisTrade(trade);
     }
@@ -58,13 +56,11 @@ const Trade = ({yourData, type, trade}) => {
 
 
   const updateTradeStatus = () => {
-    //get req for trade based on iD
-    // console.log('updating with id/status->', thisTrade.id, thisTrade.status);
+
     API.updateTradeFromID(thisTrade.id, thisTrade.status)
     .then(res => {
         API.getTradeFromID(thisTrade.id)
         .then(res => {
-          // console.log('updated trade? -> ', res.data[0]);
           setThisTrade(res.data[0]);
         })
     })
@@ -86,16 +82,15 @@ const Trade = ({yourData, type, trade}) => {
   const getSetItem = (itemID, who) => {
   API.getItemFromID(itemID)
   .then(res => {
-    // console.log(`ITEM from trade ITEMID (${itemID})\n`, res.data);
-    if(type === 'trade' && who === 'proposer') { //got back proposer item, set to your's
+    if(type === 'trade' && who === 'proposer') {
       setYourItem(res.data[0]);
       setTheirUserData(trade.receiver_id);
-    } else if(type === 'trade' && who === 'receiver') { //got back receiver item, set to their's
+    } else if(type === 'trade' && who === 'receiver') {
       setTheirItem(res.data[0]);
-    } else if(type === 'offer' && who === 'proposer') { //got back proposer item, set to their's
+    } else if(type === 'offer' && who === 'proposer') {
       setTheirItem(res.data[0]);
       setTheirUserData(trade.proposer_id);
-    } else if(type === 'offer' && who === 'receiver') { //got back receiver item, set to your's
+    } else if(type === 'offer' && who === 'receiver') {
       setYourItem(res.data[0]);
     }
   })
@@ -118,7 +113,6 @@ React.useEffect(() => {
       <div className='trade-your-item'>
         <Avatar sx={{width: 50, height: 50}} className='avatar1' src={yourData.thumbnail_url}/>
         <div className='img-box'>
-          {/* <img className='img' src='https://www.w3schools.com/css/paris.jpg'></img> */}
         <img className='img' src={yourItem.thumbnail_url}/>
         </div>
       </div>
@@ -127,17 +121,13 @@ React.useEffect(() => {
       </span>
       <div className='trade-their-item'>
         <Avatar sx={{width: 50, height: 50}} className='avatar2' src={theirData.thumbnail_url}/>
-        {/* <span className='img-box'></span> */}
         <div className='img-box'>
 
-        {/* <img className='img' src={theirItem.thumbnail_url}></img> */}
-        {/* <img className='img' src='https://www.w3schools.com/css/paris.jpg'></img> */}
         <img className='img' src={theirItem.thumbnail_url}/>
         </div>
       </div>
       <div className='btn-trade-box'>
-      {/* <button className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</button> */}
-      <Button disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
+      <Button sx={{width: '90%'}} disabled={btnDisabled} variant="outlined" className='btn-trade' onClick={e => {updateTradeStatus();}}>{btnContent}</Button>
       </div>
     </Card>
   )
@@ -145,9 +135,3 @@ React.useEffect(() => {
 
 export default Trade;
 
-
-// /////////////
-
-// 1. git co main
-// 2. git pull origin development
-// 3. git co -b <your-branch-name>
