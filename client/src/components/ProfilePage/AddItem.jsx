@@ -3,6 +3,7 @@ import {
   Button, TextField, Box, Container,
 } from '@mui/material/';
 import { styled } from '@mui/system'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const Box1 = styled('div')({
   backgroundColor: '#CAF0F8',
@@ -58,6 +59,21 @@ const TextField1 = styled('input')({
   width: '250px',
 
 })
+const Select = styled('select')({
+  border: 'none',
+  height: '40px',
+  boxShadow: `5px 5px 10px #9ab6bc,
+  -5px -5px 10px #faffff`,
+  borderRadius: '10px',
+  backgroundColor: '#CAF0F8',
+
+})
+const Input = styled('input')({
+  border: 'none',
+  outline:'none',
+  background: 'none',
+  readOnly: true,
+})
 const SubmitButton = styled('button')({
   width: '80px',
   height: '25px',
@@ -88,7 +104,7 @@ function AddItem({ setAddItem, addItem }) {
     console.log(itemName, itemCondition, itemDescription, itemImage);
   };
   return (
-    <Container1 sx={{ width: '100vw', height: '100vh', bgcolor: '#CAF0F8' }}>
+    <Container1 sx={{ height: '100vh', bgcolor: '#CAF0F8' }}>
       <Button onClick={handleClick} >back</Button>
       <Title>ADD AND ITEM
       </Title>
@@ -98,7 +114,14 @@ function AddItem({ setAddItem, addItem }) {
         <TextField1 onChange={(e) => setItemName(e.target.value)} value={itemName} variant="filled" />
         <SubTitle>Condition
       </SubTitle>
-        <TextField1 onChange={(e) => setItemCondition(e.target.value)} value={itemCondition} variant="filled" />
+        <Select onChange={(e) => setItemCondition(e.target.value)} value={itemCondition}  >
+    <option>New</option>
+    <option>Like New</option>
+    <option>Good</option>
+    <option>Fair</option>
+    <option>Broken/For Parts</option>
+        </Select>
+
         <SubTitle>Image URL
       </SubTitle>
         <TextField1 onChange={(e) => setItemImage(e.target.value)} value={itemImage} variant="filled" />

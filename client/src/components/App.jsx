@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-
+import React, { useState , useEffect} from 'react';
+import axios from 'axios';
 import Auth from './Auth';
 import Profile from './ProfilePage';
+import Map1 from './SearchPage/Map'
 
 export default function App() {
-  const [user, setUser] = useState(localStorage.getItem('user'));
-  const [view, setView] = useState({ name: 'Auth', props: { setUser } });
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? 'null'));
+  const [view, setView] = useState({ name: 'Map', props: { setUser } });
 
   const changeView = (viewName, viewProps, isCallback = false) => (
     !isCallback ? setView({ name: viewName, props: viewProps })
@@ -19,9 +20,13 @@ export default function App() {
         changeView('Profile', { user, changeView });
         break;
       case 'Profile':
-        return <Profile props={view.props} />;
+        return <Profile changeView={changeView} props={view.props} />;
+      case 'Map':
+          return <Map1 />;
       default:
         return null;
+
+
     }
     return null;
   };

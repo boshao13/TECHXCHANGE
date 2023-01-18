@@ -6,10 +6,12 @@
 }
 
 .btn-trade-box {
-  padding: 10px;
+  padding: 10px 10px 45px 10px;
+  /* border: 2px solid red; */
+
   /* background-color: aqua; */
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 .btn-trade {
   height: 50%;
@@ -24,7 +26,7 @@
 }
 
 .trade-list, .offer-list {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -62,11 +64,22 @@
 
 .trade-box {
   /* background-color: blueviolet; */
-  padding: 5px;
+  padding: 0 5px;
+  /* border: 2px solid red; */
   width: 95%;
   display: flex;
   justify-content: space-between;
 }
+.trade-box-anim {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.trade-box-anim.trade-box-1 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .swap {
   /* color: white; */
   font-size: 2rem;
@@ -91,6 +104,33 @@
   transition: .5s ease;
   /* circle crop? */
 }
+
+@keyframes swipeUpFade {
+  from {transform: translate(0, 20px);}
+  to {transform: translate(0,0);}
+}
+
+.no-trades {
+  background-color: rgb(255, 255, 255);
+  color: rgb(164, 164, 164);
+  font-size: 1.7rem;
+  padding: 10%;
+  text-align: center;
+  animation-name: swipeUpFade;
+  animation-duration: 1s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .toggle-text {
   font-size: 1rem;

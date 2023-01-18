@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-app.disable('etag');
+// app.disable('etag');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 const gzip = require('express-static-gzip');
 
 app.use(gzip(path.join(__dirname, '../client/dist')));
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const cors = require('cors');
 

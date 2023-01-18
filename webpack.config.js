@@ -7,7 +7,8 @@ module.exports = {
   entry: path.join(__dirname, './client/src/index.jsx'),
   output: {
     path: path.join(__dirname, './client/dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
+    // filename: path.join(__dirname, './public')
   },
   devtool: 'source-map',
   module: {
@@ -18,15 +19,28 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
-        },
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-    ],
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          }
+        ]
+      }
+    ],//rules end
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

@@ -7,6 +7,24 @@ module.exports.Bookmarks = require('./Bookmarks')
 
 module.exports.Shared = {
 
+  insertDevice: function(req,res) {
+    const userID = req.params.userID;
+    const qString = `INSERT INTO devices (user_id, name, thumbnail_url, description, item_condition) VALUES (${userID}, '${req.body.name}', '${req.body.thumbnail_url}', '${req.body.description}', '${req.body.item_condition}');`;
+
+    console.log('QString\n', qString);
+
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      // console.log('promise style results\n', results);
+      res.status(201).send('successfully inserted?');
+    })
+
+  },
+
   getItemFromID: async function(req,res) {
     const itemID = req.params.itemID;
     const qString = `SELECT * FROM devices WHERE id = ${itemID}`;
