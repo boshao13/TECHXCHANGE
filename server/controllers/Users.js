@@ -63,4 +63,21 @@ module.exports = {
     })
 
   },
+
+  getAllUsers: async (req, res) => {
+    // console.log('GETTING All users');
+
+    const qString = `SELECT * FROM users;`;
+
+    db.query(qString, function(err, results) {
+      if(err) {
+        console.log(err);
+        res.status(500).send(err);
+        return;
+      }
+      // console.log('promise style results\n', results);
+      res.status(200).send(results);
+    })
+
+  },
 };
