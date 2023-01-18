@@ -15,6 +15,7 @@ export default function Search() {
   const handleChange2 = (event) => {
     setCondition(event.target.value);
   };
+
   // const [allItems, setAllItems] = useState([]);
   // const [allUsers, setAllUsers] = useState([]);
 
