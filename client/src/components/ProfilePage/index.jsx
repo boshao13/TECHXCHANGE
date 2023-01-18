@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Box, Container, Avatar } from '@mui/material/';
 import PendingTrades from './PendingTrades';
 import ItemsForTrade from './ItemsForTrade';
+import BookmarkedItems from './BookmarkedItems'
 import AddItem from './AddItem';
 import { styled } from '@mui/system';
 import axios from 'axios';
+
 const PictureContainer = styled('div')({
   backgroundColor: '#CAF0F8',
   paddingTop: 0,
@@ -47,16 +49,13 @@ function Profile({props}) {
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
+
   useEffect(()=> {
     console.log('PROPS', props.user)
-    axios.get('http://localhost:8080/users/user/1')
-    .then((response)=> {
-      console.log(response.data)
-      setUserName(response.data.name)
-      setUserImage(response.data.thumbnail_url)
-      setUserDescription(response.data.description)
-      console.log('ITEMS ARE')
-    })
+      setUserName(props.user.name)
+      setUserImage(props.user.thumbnail_url)
+      setUserDescription(props.user.description)
+
   },[props])
 
   return (
@@ -71,9 +70,7 @@ function Profile({props}) {
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
             <PendingTrades userData={props.user} />
-            <Box sx={{ bgcolor: '#CAF0F8', height: '20vh' }}>
-              bookmarked items
-            </Box>
+            <BookmarkedItems/>
           </PictureContainer>
           )}
       {addItem
