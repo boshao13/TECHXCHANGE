@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS techxchange;
 
 CREATE DATABASE techxchange;
+
 USE techxchange;
 
 CREATE TABLE users (
@@ -35,4 +36,12 @@ CREATE TABLE trades (
   FOREIGN KEY (`proposer_device_id`) REFERENCES devices (`id`),
   FOREIGN KEY (`receiver_id`) REFERENCES users (`id`),
   FOREIGN KEY (`receiver_device_id`) REFERENCES devices (`id`)
+);
+
+CREATE TABLE bookmarks (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL,
+  `item_id` INT NOT NULL,
+  FOREIGN KEY (`user_id`) REFERENCES users (`id`),
+  FOREIGN KEY (`item_id`) REFERENCES devices (`id`)
 );

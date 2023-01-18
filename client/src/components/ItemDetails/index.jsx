@@ -75,18 +75,19 @@ function Item(props) {
     // navigate to profile page
   };
 
-  const onAddButtonClick = (e) => {
+  const onAddBookmarkClick = (e) => {
     e.preventDefault();
-    // const bookmarkObj = {
-    //   itemID: itemId,
-    //   userID: userId,
-    // };
-    // axios.post('http://localhost:8080/bookmarks', bookmarkObj)
-    //   .then(() => {
-    //     console.log('bookmark added');
-    //   }).catch((error) => {
-    //     console.log(error);
-    //   });
+    console.log('clicked & itemid & user id', itemId, userId);
+    const bookmarkObj = {
+      userID: userId,
+      itemID: itemId,
+    };
+    axios.post('http://localhost:8080/bookmarks', bookmarkObj)
+      .then(() => {
+        console.log('bookmark added');
+      }).catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -101,7 +102,7 @@ function Item(props) {
           </IconButton>
           <IconButton
             id="addBookmarkButton"
-            onClick={(e) => { onAddButtonClick(e); }}>
+            onClick={(e) => { onAddBookmarkClick(e); }}>
             <Add/>
           </IconButton>
         </Box>
