@@ -22,21 +22,30 @@ const Box1 = styled('div')({
 });
 
 
-function PendingTrades({userData}) {
+function PendingTrades({changeView, userData}) {
 // userData { id, email, password, thumnail_url, description, street, zip_code }
 const [yourTrades, setYourTrades] = React.useState([]);
 const [yourOffers, setYourOffers] = React.useState([]);
 const [shownTrades, setShownTrades] = React.useState([]);
 const [currentType, setCurrentType] = React.useState('trade'); //or "offer"
 const [typeHTML, setTypeHTML] = React.useState('Showing Your Trades');
+const [noTradeView, setNoTradeView] = React.useState({display: 'none'});
+const [initialLoad, setInitialLoad] = React.useState(false);
 
 React.useEffect(() => { //set HTML span for TYPE
   var typeText = currentType === 'trade' ? 'Showing Your Trades' : 'Showing Your Offers';
   setTypeHTML(typeText);
 }, [currentType]);
+React.useEffect(() => { //set HTML span for TYPE
+  if(!shownTrades.length && initialLoad) {
+    setNoTradeView({display: 'block'});
+    console.log('timeout')
+  }
+}, [shownTrades]);
 
 
 React.useEffect(() => { //sets Trades
+  console.log('User Data in Pending Trades,', userData);
   if(userData.id) {
     getSetTrades();
   }
@@ -46,17 +55,23 @@ React.useEffect(() => { //sets displayed Trades
   if(yourTrades.length && yourOffers.length) {
     if(currentType === 'trade' && yourTrades.length) {
       setShownTrades(yourTrades);
+      setNoTradeView({display: 'none'});
     } else if(currentType === 'offer' && yourOffers.length) {
       setShownTrades(yourOffers);
+      setNoTradeView({display: 'none'});
     }
+  } else {
+    setShownTrades([]);
   }
 }, [yourTrades, yourOffers, currentType])
 
 
 //First
 const getSetTrades = () => {
+  // console.log('userData ID', userData.id);
 API.getAllInvolvedTrades(userData.id)
 .then(res => {
+  // console.log('res from getAllInvolvedTrades', res);
   var tempTrades = [];
   var tempOffers = [];
   var errTrades = [];
@@ -69,10 +84,12 @@ API.getAllInvolvedTrades(userData.id)
       errTrades.push(trade);
     }
   }); //end forEach
+  setInitialLoad(true);
   setYourTrades(tempTrades);
   setYourOffers(tempOffers);
-  // console.log('Trades\n', tempTrades);
-  // console.log('Offers\n', tempOffers);
+
+  console.log('Trades\n', tempTrades);
+  console.log('Offers\n', tempOffers);
   if(errTrades.length) {console.log('error trades involved', errTrades)}
 }) //Involved Trades set
 .catch(err => {
@@ -97,10 +114,12 @@ const toggleTrade = () => {
       </div>
       <div className='trade-list'>
         {shownTrades.map((trade, i) => {
-          return <Trade i={i} key={trade.id} type={currentType} yourData={userData} trade={trade}/>
+          return <Trade changeView={changeView} i={i} key={trade.id} type={currentType} yourData={userData} trade={trade}/>
         })}
       </div>
-
+      <div className='no-trades' style={noTradeView}>
+        Your Trades will show here..
+      </div>
     </div>
   );
 }
