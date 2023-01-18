@@ -46,21 +46,23 @@ const avatarSX = {
 }
 
 
-function Profile({props}) {
+function Profile({changeView, props}) {
   const [addItem, setAddItem] = useState(false);
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
 
 
-  useEffect(()=> {
+  useEffect(() => {
     axios.get('http://localhost:8080/users/user/1')
     .then((response)=> {
       console.log('data is', response.data[0])
       setUserName(response.data[0].name)
       setUserImage(response.data[0].thumbnail_url)
       setUserDescription(response.data[0].description)
-
+    })
+    .catch(err => {
+      console.error(err);
     })
   },[props])
 
@@ -75,7 +77,7 @@ function Profile({props}) {
               <div>{userDescription}</div>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades  userData={props.user} />
+            <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
             <BookmarkedItems/>
           </PictureContainer>
           )}

@@ -19,7 +19,7 @@ export default function App() {
         changeView('Profile', { user, changeView });
         break;
       case 'Profile':
-        return <Profile props={view.props} />;
+        return <Profile changeView={changeView} props={view.props} />;
       default:
         return null;
     }

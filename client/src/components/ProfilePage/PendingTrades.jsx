@@ -22,7 +22,7 @@ const Box1 = styled('div')({
 });
 
 
-function PendingTrades({userData}) {
+function PendingTrades({changeView, userData}) {
 // userData { id, email, password, thumnail_url, description, street, zip_code }
 const [yourTrades, setYourTrades] = React.useState([]);
 const [yourOffers, setYourOffers] = React.useState([]);
@@ -37,6 +37,7 @@ React.useEffect(() => { //set HTML span for TYPE
 
 
 React.useEffect(() => { //sets Trades
+  console.log('User Data in Pending Trades,', userData);
   if(userData.id) {
     getSetTrades();
   }
@@ -55,8 +56,10 @@ React.useEffect(() => { //sets displayed Trades
 
 //First
 const getSetTrades = () => {
+  // console.log('userData ID', userData.id);
 API.getAllInvolvedTrades(userData.id)
 .then(res => {
+  // console.log('res from getAllInvolvedTrades', res);
   var tempTrades = [];
   var tempOffers = [];
   var errTrades = [];
@@ -97,7 +100,7 @@ const toggleTrade = () => {
       </div>
       <div className='trade-list'>
         {shownTrades.map((trade, i) => {
-          return <Trade i={i} key={trade.id} type={currentType} yourData={userData} trade={trade}/>
+          return <Trade changeView={changeView} i={i} key={trade.id} type={currentType} yourData={userData} trade={trade}/>
         })}
       </div>
 
