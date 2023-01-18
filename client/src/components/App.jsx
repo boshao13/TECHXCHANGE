@@ -6,7 +6,7 @@ import Map1 from './SearchPage/Map'
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? 'null'));
-  const [view, setView] = useState({ name: 'add item', props: { setUser } });
+  const [view, setView] = useState({ name: 'Map', props: { setUser } });
 
   const changeView = (viewName, viewProps, isCallback = false) => (
     !isCallback ? setView({ name: viewName, props: viewProps })
@@ -23,7 +23,6 @@ export default function App() {
         return <Profile props={view.props} />;
       case 'Map':
           return <Map1 />;
-
       default:
         return null;
 
