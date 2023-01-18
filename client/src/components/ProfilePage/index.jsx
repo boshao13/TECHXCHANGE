@@ -57,12 +57,12 @@ function Profile({props}) {
     axios.get('http://localhost:8080/users/user/1')
     .then((response)=> {
       console.log('data is', response.data)
-      setUserName(response.data.name)
-      setUserImage(response.data.thumbnail_url)
-      setUserDescription(response.data.description)
+      setUserName(response.data[0].name)
+      setUserImage(response.data[0].thumbnail_url)
+      setUserDescription(response.data[0].description)
 
     })
-  },[user])
+  },[props])
 
   return (
     <>
@@ -75,7 +75,7 @@ function Profile({props}) {
               <div>{userDescription}</div>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades userData={user} userData={props.user} />
+            <PendingTrades  userData={props.user} />
             <BookmarkedItems/>
           </PictureContainer>
           )}
