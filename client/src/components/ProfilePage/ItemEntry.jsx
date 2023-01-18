@@ -20,8 +20,8 @@ const Box2 = styled('div')({
   paddingLeft: '20px',
   paddingTop: '18px',
   background: '#CAF0F8',
-  boxShadow: `inset 5px 5px 6px #a4c2c9,
-  inset -5px -5px 6px #f0ffff`,
+  // boxShadow: `inset 5px 5px 6px #a4c2c9,
+  // inset -5px -5px 6px #f0ffff`,
   fontSize:'smaller'
 
 })
@@ -50,7 +50,6 @@ function ItemEntry() {
   return (
 
     <Box1>
-
       <Box sx={{
         display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center',
       }}>
