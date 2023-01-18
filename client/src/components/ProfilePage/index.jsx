@@ -7,6 +7,8 @@ import AddItem from './AddItem';
 import { styled } from '@mui/system';
 import axios from 'axios';
 
+
+
 const PictureContainer = styled('div')({
   backgroundColor: '#CAF0F8',
   paddingTop: 0,
@@ -50,13 +52,17 @@ function Profile({props}) {
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
 
-  useEffect(()=> {
-    console.log('PROPS', props.user)
-      setUserName(props.user.name)
-      setUserImage(props.user.thumbnail_url)
-      setUserDescription(props.user.description)
 
-  },[props])
+  useEffect(()=> {
+    axios.get('http://localhost:8080/users/user/1')
+    .then((response)=> {
+      console.log('data is', response.data)
+      setUserName(response.data.name)
+      setUserImage(response.data.thumbnail_url)
+      setUserDescription(response.data.description)
+
+    })
+  },[user])
 
   return (
     <>
@@ -69,7 +75,7 @@ function Profile({props}) {
               <div>{userDescription}</div>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades userData={props.user} />
+            <PendingTrades userData={user} userData={props.user} />
             <BookmarkedItems/>
           </PictureContainer>
           )}
