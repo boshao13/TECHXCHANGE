@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 import { Map } from 'react-map-gl'
+import * as API from '../../API.js'
 import DATA from './address.json'
 import 'mapbox-gl/dist/mapbox-gl.css';
 const ACCESS_TOKEN = 'pk.eyJ1IjoiYm9zaGFvMTMiLCJhIjoiY2xkMTgya2JhMXZkYTNudDdrYTQ1M25kdSJ9.DsCvNLZe6sZ1-zId4C-eIA'
@@ -19,9 +20,90 @@ const Title = styled('div')({
   top: '80px',
   left: '155px'
 })
-function Map1() {
 
-  const onClick =info => {
+var mapFeatureObj = {
+  "type": "Feature",
+  "id": 0,
+  "properties": {
+    "Name": "Susan IPHONE XR1",
+    "device": "iphone"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -71.13112956925647,
+      42.32550867371509
+    ]
+  }
+};
+
+// var mapDataTemplate = {
+//   "type": "FeatureCollection",
+//     "features": []
+// }
+
+function Map1() {
+  const [allUsers, setAllUsers] = useState([]);
+  const [mapData, setMapData] = useState({
+    "type": "FeatureCollection",
+      "features": []
+  });
+
+  React.useEffect(() => { //gets and sets allUsers on mount
+    API.getAllUsers()
+    .then(res => {
+      setAllUsers(res.data);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }, [])
+
+  React.useEffect(() => { //triggers fillMap func
+    if(allUsers.length) {
+      fillMapDataWithUsersLocations();
+    }
+  }, [allUsers]);
+
+  React.useEffect(() => { //triggers fillMap func
+    console.log('mapData: ', mapData);
+  }, [mapData]);
+
+
+
+  const fillMapDataWithUsersLocations = () => {
+    var tempFeatures = [];
+
+    allUsers.forEach((user, i) => {
+      var objFeature = {};
+      Object.assign(objFeature, mapFeatureObj);
+
+      var street = user.street;
+      var zip = user.zip_code;
+      var tempCoords = convertAddyToCoords(street, zip);
+      //set coords into array tempCoords [lat, long]
+      //construct obj to push into tempFeatures arr
+      objFeature.id = i;
+      objFeature.properties = {Name: user.name, Devices: []}; //add in devices?
+      tempFeatures.push(objFeature);
+      //
+    });//forEach ends
+    var newMapDataObj = {};
+    Object.assign(newMapDataObj, mapData);
+    newMapDataObj.features = tempFeatures;
+    setMapData(newMapDataObj);
+
+  };//END fillMap FUNC
+
+  const convertAddyToCoords = (street, zip) => {
+    //do conversion
+
+    return [72.3842, 83.18942]; //obj change these
+  }
+
+
+
+  const onClick =info => { // Go to Item Details, etc
     if(info.object) {
       console.log(info.object.properties.Name)
     }
@@ -29,7 +111,7 @@ function Map1() {
   const layers = [
     new GeoJsonLayer({
       id: 'people',
-      data: DATA,
+      data: mapData, //.json
       filled: true,
       pointRadiusMinPixels: 5,
       pointRadiusScale: 1,
