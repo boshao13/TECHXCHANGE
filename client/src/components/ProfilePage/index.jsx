@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container, Avatar } from '@mui/material/';
 import PendingTrades from './PendingTrades';
 import ItemsForTrade from './ItemsForTrade';
+import BookmarkedItems from './BookmarkedItems'
 import AddItem from './AddItem';
-import { styled } from '@mui/system'
+import { styled } from '@mui/system';
+import axios from 'axios';
+
 
 
 const PictureContainer = styled('div')({
@@ -43,23 +46,37 @@ const avatarSX = {
 }
 
 
-function Profile() {
-  const [addItem, setAddItem] = useState(true);
+function Profile({props}) {
+  const [addItem, setAddItem] = useState(false);
+  const [userName, setUserName] = useState('')
+  const [userImage, setUserImage] = useState('')
+  const [userDescription, setUserDescription] = useState('')
+
+
+  useEffect(()=> {
+    axios.get('http://localhost:8080/users/user/1')
+    .then((response)=> {
+      console.log('data is', response.data[0])
+      setUserName(response.data[0].name)
+      setUserImage(response.data[0].thumbnail_url)
+      setUserDescription(response.data[0].description)
+
+    })
+  },[props])
+
   return (
     <>
       {!addItem
           && (
           <PictureContainer >
             <Box1>
-              <Avatar sx={avatarSX} />
-              <div>Hello User</div>
-              <div>USER DESCRIPTION</div>
+              <Avatar sx={avatarSX} src={userImage}/>
+              <div>Hello {userName}</div>
+              <div>{userDescription}</div>
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-            <PendingTrades />
-            <Box sx={{ bgcolor: '#CAF0F8', height: '20vh' }}>
-              bookmarked items
-            </Box>
+            <PendingTrades  userData={props.user} />
+            <BookmarkedItems/>
           </PictureContainer>
           )}
       {addItem

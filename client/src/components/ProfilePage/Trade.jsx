@@ -21,7 +21,7 @@ const Trade = ({yourData, type, trade}) => {
 
 
   React.useEffect(() => { //set Trade
-    console.log('YOUR ITEM', yourItem);
+    // console.log('YOUR ITEM', yourItem);
   }, [yourItem]);
   React.useEffect(() => { //set btnContent
     if(btnContent.slice(0,4) === 'Pend' || btnContent.slice(0,4) === 'Comp') {

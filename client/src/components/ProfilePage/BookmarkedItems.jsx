@@ -54,23 +54,15 @@ const buttonSX = {
   },
 };
 
-function ItemsForTrade({ setAddItem, addItem }) {
-  const handleClick = () => {
-    console.log('clicked');
-    setAddItem(!addItem);
-  };
+function BookmarkedItems () {
+
   return (
       <Box1 >
-        <Title sx={{color: '#505050',}}>Items for Trade</Title>
+        <Title sx={{color: '#505050',}}>Bookmarked Items</Title>
         <ItemEntry />
         <Box2>
-        <AddButton sx={buttonSX} onClick={handleClick} variant="contained" endIcon={<AddIcon />}>
-        Add Item
-        </AddButton>
         </Box2>
       </Box1>
-
-
   );
 }
-export default ItemsForTrade;
+export default BookmarkedItems;
