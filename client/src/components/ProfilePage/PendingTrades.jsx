@@ -96,8 +96,8 @@ const toggleTrade = () => {
         <RefreshIcon fontSize='inherit' onClick={e => {getSetTrades()}} className="refresh-trades"/>
       </div>
       <div className='trade-list'>
-        {shownTrades.map(trade => {
-          return <Trade key={trade.id} type={currentType} yourData={userData} trade={trade}/>
+        {shownTrades.map((trade, i) => {
+          return <Trade i={i} key={trade.id} type={currentType} yourData={userData} trade={trade}/>
         })}
       </div>
 

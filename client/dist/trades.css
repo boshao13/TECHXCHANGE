@@ -72,7 +72,7 @@
 }
 .trade-box-anim {
   opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(20px);
   transition: opacity 1s ease, transform 1s ease;
 }
 .trade-box-anim.trade-box-1 {

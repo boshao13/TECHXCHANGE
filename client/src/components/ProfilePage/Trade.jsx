@@ -10,7 +10,7 @@ import {Card, Box, Button} from '@mui/material/';
 //   status}
 // console.log('loading Trades for type...', type, thisTrade);
 
-const Trade = ({yourData, type, trade}) => {
+const Trade = ({yourData, i, type, trade}) => {
   const [thisTrade, setThisTrade] = React.useState({});
   const [theirData, setTheirData] = React.useState({});
   const [yourItem, setYourItem] = React.useState({});
@@ -21,7 +21,9 @@ const Trade = ({yourData, type, trade}) => {
   const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => { //set Trade
+    setTimeout(() => {
       setIsMounted(true);
+    }, (70 * (2*i)));
   }, []);
 
   React.useEffect(() => { //set btnContent
