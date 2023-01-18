@@ -10,7 +10,7 @@ import {Card, Box, Button} from '@mui/material/';
 //   status}
 // console.log('loading Trades for type...', type, thisTrade);
 
-const Trade = ({yourData, i, type, trade}) => {
+const Trade = ({changeView, yourData, i, type, trade}) => {
   const [thisTrade, setThisTrade] = React.useState({});
   const [theirData, setTheirData] = React.useState({});
   const [yourItem, setYourItem] = React.useState({});
@@ -109,6 +109,15 @@ React.useEffect(() => {
  }
 }, [thisTrade])
 
+const rerouteToItem = (item) => {
+  console.log('ITEM to route to', item);
+  console.log('changeView', changeView);
+  // var propsObj = {userId: yourData.id, item, setDisplayItemDetails, setDisplayProposeTradeForm, displayProposeTradeForm,
+  // currentUserId,
+  // displayItemDetails,};
+
+  // changeView('ItemDetails', propsObj)
+};
 
 
 return (
@@ -118,7 +127,7 @@ return (
       <div className='trade-your-item'>
         <Avatar sx={{width: 50, height: 50}} className='avatar1' src={yourData.thumbnail_url}/>
         <div className='img-box'>
-        <img className='img' src={yourItem.thumbnail_url}/>
+        <img onClick={() => {rerouteToItem(yourItem)}} className='img' src={yourItem.thumbnail_url}/>
         </div>
       </div>
       <span className='swap-icon'>
@@ -128,7 +137,7 @@ return (
         <Avatar sx={{width: 50, height: 50}} className='avatar2' src={theirData.thumbnail_url}/>
         <div className='img-box'>
 
-        <img className='img' src={theirItem.thumbnail_url}/>
+        <img onClick={() => {rerouteToItem(theirItem)}} className='img' src={theirItem.thumbnail_url}/>
         </div>
       </div>
       <div className='btn-trade-box'>

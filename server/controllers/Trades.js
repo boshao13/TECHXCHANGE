@@ -3,7 +3,7 @@ const db = require('../db');
 module.exports = {
 
   getInvolvedTrades: async function(req,res) {
-    const userID = req.body.userID;
+    var userID = req.body.userID;
 
     const qString = `SELECT * from trades WHERE proposer_id=${userID} OR receiver_id=${userID};`;
     db.query(qString, function(err, results) {
@@ -12,7 +12,6 @@ module.exports = {
         res.status(500).send(err);
         return;
       }
-      // console.log('promise style results\n', results);
       res.status(200).send(results);
     })
 
