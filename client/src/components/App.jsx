@@ -4,7 +4,7 @@ import Auth from './Auth';
 import Profile from './ProfilePage';
 
 export default function App() {
-  const [user, setUser] = useState(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? 'null'));
   const [view, setView] = useState({ name: 'Auth', props: { setUser } });
 
 

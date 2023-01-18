@@ -14,11 +14,12 @@ function ProposeTradeForm(props) {
   useEffect(() => {
     getItemsFromUserID(props.currentUserId)
     .then((response) => {
+      console.log(response.data);
       setUserDevices(response.data)
       }).catch((error) => {
         console.log(error);
       })
-  }, []);
+  }, [props.currentUserId]);
 
   const setDevice = (e, id) => {
     e.preventDefault(e);
