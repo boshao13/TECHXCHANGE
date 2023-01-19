@@ -2,7 +2,8 @@ import React, { useState , useEffect} from 'react';
 import axios from 'axios';
 import Auth from './Auth';
 import Profile from './ProfilePage';
-import Map1 from './SearchPage/Map'
+import Map1 from './SearchPage/Map';
+import SearchPage from './SearchPage/index.jsx';
 
 export default function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? 'null'));
@@ -22,7 +23,9 @@ export default function App() {
       case 'Profile':
         return <Profile props={view.props} />;
       case 'Map':
-          return <Map1 />;
+        return <Map1 />;
+      case 'Search':
+        return <SearchPage />
       default:
         return null;
     }
