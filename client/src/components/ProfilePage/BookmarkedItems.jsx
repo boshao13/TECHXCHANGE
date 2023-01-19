@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Box } from '@mui/material/';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import AddIcon from '@mui/icons-material/Add';
 import ItemEntry from './ItemEntry';
 import {styled} from '@mui/system'
+import axios from 'axios';
 
 const Box1 = styled('div')({
   backgroundColor: '#CAF0F8',
@@ -54,7 +55,30 @@ const buttonSX = {
   },
 };
 
-function BookmarkedItems () {
+function BookmarkedItems ({userData}) {
+  const [bookmarkedForUser, setBookmarkedForUser] = useState([]);
+
+  console.log('props in bookmarked items ', userData.id);
+  const getBookmarkedItems = () => {
+    console.log('clicked, fetching data');
+    axios.get('http://localhost:8080/bookmarks', {
+      params: {
+        id: userData.id,
+      },
+    }
+    )
+      .then((result) => {
+        console.log('result on front end is ', result);
+        setBookmarkedForUser(result.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  useEffect(() => {
+    getBookmarkedItems();
+  }, [userData])
+
 
   return (
       <Box1 >

@@ -138,7 +138,7 @@ function Item(props) {
       itemID: itemId,
       userID: userId,
     };
-    axios.post('http://localhost:8080/bookmarks', bookmarkObj)
+    axios.post('http://localhost:8080/bookmark', bookmarkObj)
       .then(() => {
         console.log('bookmark added');
       }).catch((error) => {

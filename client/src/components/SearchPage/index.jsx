@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import Search from './Search.jsx';
 
 const SearchPage = () => {
   return (
-    <div>SearchPage
+    <div>
+      < Search />
     </div>
   )
 };
