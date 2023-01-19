@@ -55,7 +55,7 @@ const avatarSX = {
 }
 
 function Profile({changeView, props}) {
-  const [addItem, setAddItem] = useState(false);
+  const [addItem, setAddItem] = useState(true);
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')

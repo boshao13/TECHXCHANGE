@@ -12,7 +12,10 @@ CREATE TABLE users (
   `name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
   `street` VARCHAR(255) NOT NULL,
-  `zip_code` VARCHAR(10) NOT NULL
+  `city` VARCHAR(255) NOT NULL,
+  `state` VARCHAR(255) NOT NULL,
+  `latitude` FLOAT NOT NULL,
+  `longitude` FLOAT NOT NULL
 );
 
 CREATE TABLE devices (
