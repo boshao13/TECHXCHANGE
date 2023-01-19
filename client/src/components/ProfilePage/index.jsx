@@ -55,8 +55,9 @@ const avatarSX = {
 }
 
 
-function Profile({user, changeView, props}) {
-  const [addItem, setAddItem] = useState(false);
+function Profile({changeView, props}) {
+  const [addItem, setAddItem] = useState(true);
+
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
@@ -106,9 +107,16 @@ function Profile({user, changeView, props}) {
               </Box2>
             </Box1>
 
+
             <ItemsForTrade user={user} itemsData={itemsData} setAddItem={setAddItem} addItem={addItem}  />
+
+            <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
+
             {/* <PendingTrades  userData={props.user} /> */}
             <BookmarkedItems/>
+
+            <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
+            <BookmarkedItems userData={{id: 1, thumbnail_url: userImage}} />
           </PictureContainer>
           )}
       {addItem
@@ -119,5 +127,3 @@ function Profile({user, changeView, props}) {
 
   );
 }
-
-export default Profile;
