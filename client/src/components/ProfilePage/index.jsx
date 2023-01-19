@@ -55,8 +55,8 @@ const avatarSX = {
 }
 
 
-function Profile({changeView, props}) {
-  const [addItem, setAddItem] = useState(true);
+function Profile({user, changeView, props}) {
+  const [addItem, setAddItem] = useState(false);
 
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
@@ -65,7 +65,6 @@ function Profile({changeView, props}) {
 // props.changeView
   useEffect(() => {
     console.log('CURRENT USER', user)
-
 
       setUserName(user.name)
       setUserImage(user.thumbnail_url || 'https://viterbischool.usc.edu/wp-content/uploads/2020/05/Lily-Profile-Square.jpeg')
@@ -78,16 +77,17 @@ function Profile({changeView, props}) {
     axios.get('/items/user/3')
     .then((res)=> {
       setItemsData(res.data)
-      console.log(res.data)
+      console.log('ITEM DATA', res.data)
     })
   }, [user])
+
+
   return (
     <>
       {!addItem
           && (
           <PictureContainer >
                    <SearchIcon sx={{
-
   boxShadow: `5px 5px 10px #9ab6bc,
   -5px -5px 10px #faffff`,
   borderRadius: '2000px',
@@ -107,14 +107,7 @@ function Profile({changeView, props}) {
               </Box2>
             </Box1>
 
-
             <ItemsForTrade user={user} itemsData={itemsData} setAddItem={setAddItem} addItem={addItem}  />
-
-            <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
-
-            {/* <PendingTrades  userData={props.user} /> */}
-            <BookmarkedItems/>
-
             <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
             <BookmarkedItems userData={{id: 1, thumbnail_url: userImage}} />
           </PictureContainer>
@@ -127,3 +120,4 @@ function Profile({changeView, props}) {
 
   );
 }
+export default Profile

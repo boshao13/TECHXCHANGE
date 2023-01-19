@@ -18,7 +18,6 @@ const Box1 = styled('div')({
   marginBottom: '35px',
   paddingBottom: '20px',
   width: '100%',
-
 });
 const Box2 = styled('div')({
   backgroundColor: '#CAF0F8',
@@ -26,8 +25,6 @@ const Box2 = styled('div')({
   flexWrap: 'wrap',
   display: 'flex',
   justifyContent: 'center',
-
-
 });
 const Title = styled('div')({
   textAlign: 'center',
