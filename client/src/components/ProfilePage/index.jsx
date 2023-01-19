@@ -54,7 +54,6 @@ const avatarSX = {
   border: '7px solid #CAF0F8',
 }
 
-
 function Profile({changeView, props}) {
   const [addItem, setAddItem] = useState(false);
   const [userName, setUserName] = useState('')
@@ -89,7 +88,7 @@ function Profile({changeView, props}) {
             </Box1>
             <ItemsForTrade setAddItem={setAddItem} addItem={addItem} />
             <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
-            <BookmarkedItems/>
+            <BookmarkedItems userData={{id: 1, thumbnail_url: userImage}} />
           </PictureContainer>
           )}
       {addItem
