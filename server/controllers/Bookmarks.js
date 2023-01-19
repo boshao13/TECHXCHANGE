@@ -25,7 +25,7 @@ function getBookmarks (req, res) {
       res.status(404).send(err);
     } else {
       console.log('success in bookmarks get ', result);
-      res.status(201).send(result);
+      res.status(200).send(result);
     }
   });
 }

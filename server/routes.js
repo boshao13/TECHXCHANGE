@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Users, Trades, Shared, Bookmarks } = require('./controllers');
+const { Users, Trades, Shared, Bookmarks, Search } = require('./controllers');
 
 router.get('/users/user/:id', Users.getUser);
 router.post('/users', Users.createUser);
@@ -17,6 +17,6 @@ router.post('/trades', Trades.createNewTrade); //WORKING
 router.post('/bookmark', Bookmarks.saveBookmark);
 router.get('/bookmarks', Bookmarks.getBookmarks);
 
-// router.get('/devices', Search.)
+router.get('/devices', Search.getAllDevices);
 
 module.exports = router;
