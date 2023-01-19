@@ -20,7 +20,7 @@ export default function App() {
         changeView('Profile', { user, changeView });
         break;
       case 'Profile':
-        return <Profile changeView={changeView} props={view.props} />;
+        return <Profile user={user} changeView={changeView} props={view.props} />;
       case 'Map':
           return <Map1 />;
       default:
@@ -33,3 +33,7 @@ export default function App() {
 
   return renderView();
 }
+
+
+// COLOR PALETTE
+//#03045E #0077B6 #00B4D8 #90E0EF # CAF0F8

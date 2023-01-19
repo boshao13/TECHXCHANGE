@@ -45,7 +45,6 @@ const AddButton = styled('button')({
   border: 'none',
   color: '#505050',
   marginTop: '15px'
-
 })
 const buttonSX = {
   "&:hover": {

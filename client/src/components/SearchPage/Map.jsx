@@ -22,7 +22,9 @@ const INITIAL_VIEW_STATE = {
 const Title = styled('div')({
   position: 'absolute',
   top: '80px',
-  left: '155px'
+  left: '130px',
+  fontFamily: `'Courgette', cursive`,
+  fontSize: 'x-large'
 })
 
 var mapFeatureObj = {
@@ -133,7 +135,7 @@ function Map1() {
      initialViewState={INITIAL_VIEW_STATE}
      controller={true}
      layers={layers}>
-       <Title>TECH MAP</Title>
+       <Title>find an item</Title>
       <Map mapStyle={MAP_STYLE} mapboxAccessToken={ACCESS_TOKEN}/>
      </DeckGL>
     </>
