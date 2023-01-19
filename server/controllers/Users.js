@@ -31,7 +31,7 @@ module.exports = {
       const salt = await bcrypt.genSalt();
       const hash = await bcrypt.hash(data.password, salt);
 
-      let query = `INSERT INTO users (name, email, password, description, street, zip_code) VALUES ("${data.name}", "${data.email}", "${hash}", "${description}", "${data.street}", "${data.zip_code}");`;
+      let query = `INSERT INTO users (name, email, password, description, street, city, state, latitude, longitude) VALUES ("${data.name}", "${data.email}", "${hash}", "${description}", "${data.street}", "${data.city}", "${data.state}", ${data.latitude}, ${data.longitude});`;
       const conn = db.promise();
       await conn.execute(query);
 
@@ -52,16 +52,15 @@ module.exports = {
 
     const qString = `SELECT * FROM users WHERE id = ${userID};`;
 
-    db.query(qString, function(err, results) {
-      if(err) {
+    db.query(qString, function (err, results) {
+      if (err) {
         console.log(err);
         res.status(500).send(err);
         return;
       }
       // console.log('promise style results\n', results);
       res.status(200).send(results);
-    })
-
+    });
   },
 
   getAllUsers: async (req, res) => {
@@ -69,15 +68,14 @@ module.exports = {
 
     const qString = `SELECT * FROM users;`;
 
-    db.query(qString, function(err, results) {
-      if(err) {
+    db.query(qString, function (err, results) {
+      if (err) {
         console.log(err);
         res.status(500).send(err);
         return;
       }
       // console.log('promise style results\n', results);
       res.status(200).send(results);
-    })
-
+    });
   },
 };
