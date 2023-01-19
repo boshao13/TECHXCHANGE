@@ -4,14 +4,14 @@ DELETE FROM users;
 DELETE FROM devices;
 DELETE FROM trades;
 
-INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `zip_code`)
-VALUES ('bob@gmail.com', 'bob', 'pass123', 'https://pyxis.nymag.com/v1/imgs/451/ba2/6f22dfb79768b5c0841c4570cbd8cfb7bf-13-armond-white-2.rsquare.w330.jpg', 'i love trading phones', '1 street way', 98208);
+INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `city`, `state`, `latitude`, `longitude`)
+VALUES ('bob@gmail.com', 'bob', 'pass123', 'https://pyxis.nymag.com/v1/imgs/451/ba2/6f22dfb79768b5c0841c4570cbd8cfb7bf-13-armond-white-2.rsquare.w330.jpg', 'i love trading phones', '1 street way', 'Los Angeles', 'CA', 40.731843, -73.932837);
 
-INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `zip_code`)
-VALUES ('sally@gmail.com', 'sally', 'pass321', 'https://viterbischool.usc.edu/wp-content/uploads/2020/05/Lily-Profile-Square.jpeg', 'i like trading laptops', '20 street avenue', 95747);
+INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `city`, `state`, `latitude`, `longitude`)
+VALUES ('sally@gmail.com', 'sally', 'pass321', 'https://viterbischool.usc.edu/wp-content/uploads/2020/05/Lily-Profile-Square.jpeg', 'i like trading laptops', '20 street avenue', 'San Francisco', 'WA', 40.739723, -73.938837);
 
-INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `zip_code`)
-VALUES ('chris@gmail.com', 'chris', 'pass345', 'https://i0.wp.com/www.mobileworldlive.com/wp-content/uploads/2015/10/Dorsey-iamge.png?fit=550%2C532&ssl=1', 'i trade stuff', '10 street boulevard', 94010);
+INSERT INTO users (`email`, `name`, `password`, `thumbnail_url`, `description`, `street`, `city`, `state`, `latitude`, `longitude`)
+VALUES ('chris@gmail.com', 'chris', 'pass345', 'https://i0.wp.com/www.mobileworldlive.com/wp-content/uploads/2015/10/Dorsey-iamge.png?fit=550%2C532&ssl=1', 'i trade stuff', '10 street boulevard', 'Everett', 'WA', 40.736712, -73.939931);
 
 INSERT INTO devices (`user_id`, `name`, `thumbnail_url`, `description`, `item_condition`)
 VALUES (1, 'iPhone 7', 'https://www.cnet.com/a/img/resize/68a75e35b45a2782ae48c9650766882b4812755a/hub/2016/09/12/2cdb7915-ede0-4db9-bd39-a2b6092719e8/iphone7plusv20.jpg?auto=webp&fit=cover&height=482&width=856', 'minor scratches.', 'great');

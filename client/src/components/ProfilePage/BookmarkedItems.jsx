@@ -46,7 +46,6 @@ const AddButton = styled('button')({
   border: 'none',
   color: '#505050',
   marginTop: '15px'
-
 })
 const buttonSX = {
   "&:hover": {
@@ -56,9 +55,11 @@ const buttonSX = {
 };
 
 function BookmarkedItems ({userData}) {
+
   const [bookmarkedForUser, setBookmarkedForUser] = useState([]);
 
   console.log('props in bookmarked items ', userData.id);
+
   const getBookmarkedItems = () => {
     console.log('clicked, fetching data');
     axios.get('http://localhost:8080/bookmarks', {
@@ -68,7 +69,7 @@ function BookmarkedItems ({userData}) {
     }
     )
       .then((result) => {
-        console.log('result on front end is ', result);
+        console.log('BOOKMARKED ITEMS ARE ', result.data);
         setBookmarkedForUser(result.data);
       })
       .catch((error) => {
