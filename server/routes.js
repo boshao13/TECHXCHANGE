@@ -13,6 +13,9 @@ router.post('/item/insert/:userID', Shared.insertDevice); //WORKING
 router.put('/trade/status/:tradeID/:newStatus', Trades.updateTradeFromID);//WORKING
 router.post('/trades', Trades.createNewTrade); //WORKING
 
-router.post('/bookmarks', Bookmarks.saveBookmark);
+router.post('/bookmark', Bookmarks.saveBookmark);
+router.get('/bookmarks', Bookmarks.getBookmarks);
+
+// router.get('/devices', Search.)
 
 module.exports = router;
