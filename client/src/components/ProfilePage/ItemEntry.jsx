@@ -47,24 +47,31 @@ const avatarSX = {
 
 }
 
-function ItemEntry({user, item}) {
+function ItemEntry({changeView, user, item}) {
 const [itemImage, setItemImage] = useState('')
 const [itemName, setItemName] = useState('')
 const [itemCondition, setItemCondition] = useState('')
 const [itemDescription, setItemDescription] = useState('')
+const [itemId, setItemId] = useState('')
+
+
+const handleClick = () => {
+  changeView('ItemDetails', {currentUserId: user.id, currentItemId: itemId, changeview: changeView})
+}
 
   useEffect(()=>{
     if(user){
-      console.log('CURRENT ITEM', item)
+      console.log('CURRENT ITEM', itemId, user)
       setItemImage(item.thumbnail_url)
       setItemName(item.name)
       setItemCondition(item.condition)
       setItemDescription(item.description)
+      setItemId(item.id)
     }
   },[user])
 
   return (
-    <Box1>
+    <Box1 onClick={handleClick}>
       <Box sx={{
         display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center',
       }}>
