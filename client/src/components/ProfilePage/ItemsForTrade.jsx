@@ -18,6 +18,7 @@ const Box1 = styled('div')({
   marginBottom: '35px',
   paddingBottom: '20px',
   width: '100%',
+
 });
 const Box2 = styled('div')({
   backgroundColor: '#CAF0F8',
@@ -25,6 +26,8 @@ const Box2 = styled('div')({
   flexWrap: 'wrap',
   display: 'flex',
   justifyContent: 'center',
+
+
 });
 const Title = styled('div')({
   textAlign: 'center',
@@ -42,6 +45,7 @@ const AddButton = styled('button')({
   border: 'none',
   color: '#505050',
   marginTop: '15px'
+
 })
 const buttonSX = {
   "&:hover": {
@@ -50,23 +54,22 @@ const buttonSX = {
   },
 };
 
-function ItemsForTrade({ user, itemsData, setAddItem, addItem }) {
+function ItemsForTrade({ setAddItem, addItem }) {
   const handleClick = () => {
     console.log('clicked');
     setAddItem(!addItem);
   };
-  console.log(itemsData)
   return (
       <Box1 >
         <Title sx={{color: '#505050',}}>Items for Trade</Title>
-        {itemsData.map((item, key) => <ItemEntry user={user} item={item} setAddItem={setAddItem} addItem={addItem} key={key} />)
-        }
+        <ItemEntry />
         <Box2>
         <AddButton sx={buttonSX} onClick={handleClick} variant="contained" endIcon={<AddIcon />}>
         Add Item
         </AddButton>
         </Box2>
       </Box1>
+
 
   );
 }
