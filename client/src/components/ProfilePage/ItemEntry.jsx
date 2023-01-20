@@ -56,6 +56,7 @@ const [itemId, setItemId] = useState('')
 
 
 const handleClick = () => {
+  console.log('ID IS', user.id, itemId)
   changeView('ItemDetails', {currentUserId: user.id, currentItemId: itemId, changeview: changeView})
 }
 

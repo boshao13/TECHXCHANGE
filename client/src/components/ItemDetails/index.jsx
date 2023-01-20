@@ -9,17 +9,21 @@ import * as API from '../../API.js';
 import ProposeTradeForm from './ProposeTradeForm';
 import {styled} from '@mui/system';
 
-function Item(props) {
-  const [userId, setUserId] = useState(props.userId);
+function Item({props}) {
+  const [itemId, setItemId] = useState();
+  const [itemPhoto, setItemPhoto] = useState('');
+  const [itemTitle, setItemTitle] = useState('');
+  const [itemDetails, setItemDetails] = useState('');
+  const [itemCondition, setItemCondition] = useState('');
+
+  const [userId, setUserId] = useState();
   const [currentUserDescription, setCurrentUserDescription] = useState('');
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [profilePhotoThumbnail, setProfilePhotoThumbnail] = useState('');
   const [currentUserLocation, setCurrentUserLocation] = useState({});
-  const [itemId, setItemId] = useState(props.item.id);
-  const [itemPhoto, setItemPhoto] = useState(props.item.thumbnail_url);
-  const [itemTitle, setItemTitle] = useState(props.item.name);
-  const [itemDetails, setItemDetails] = useState(props.item.description);
-  const [itemCondition, setItemCondition] = useState(props.item.item_condition);
+
+  const [displayProposeTradeForm, setDisplayProposeTradeForm] = useState(false);
+  const [displayItemDetails, setDisplayItemDetails] = useState(false);
 
   const Box1 = styled('div')({
     backgroundColor: '#CAF0F8',
@@ -108,14 +112,37 @@ function Item(props) {
     marginRight: '20px'
   }
 
+  const iconButtonStyling = {
+    boxShadow: `-3px -3px 3px rgba(232,242,255,0.8), 5px 5px 10px rgba(0,0,0,0.25)`,
+    borderRadius: '50%',
+    fontSize: '45px'
+  };
+
+  useEffect(() => {
+    console.log('PROPS ARE ', props)
+
+    API.getItemFromID(props.currentItemId)
+      .then((response) => {
+        console.log(response.data);
+        setItemId(response.data[0].id);
+        setItemPhoto(response.data[0].thumbnail_url);
+        setItemTitle(response.data[0].name);
+        setItemDetails(response.data[0].description);
+        setItemCondition(response.data[0].item_condition);
+        setUserId(response.data[0].user_id);
+      }).catch((error) => {
+        console.log(error);
+      });
+  }, [props.currentItemId]);
 
   useEffect(() => {
     API.getUserFromID(userId)
     .then((response) => {
-    setCurrentUserDescription(response.data[0].description)
-    setCurrentUserEmail(response.data[0].email)
-    setProfilePhotoThumbnail(response.data[0].thumbnail_url)
-    setCurrentUserLocation({ 'street': response.data[0].street, 'zip': response.data[0].zip_code })
+      setCurrentUserDescription(response.data[0].description)
+      setCurrentUserEmail(response.data[0].email)
+      setProfilePhotoThumbnail(response.data[0].thumbnail_url)
+      setCurrentUserLocation({ 'street': response.data[0].street, 'city': response.data[0].city, 'state': response.data[0].state })
+      setDisplayItemDetails(true);
     }).catch((error) => {
       console.log(error);
     })}, [itemId]);
@@ -123,13 +150,14 @@ function Item(props) {
 
   const onProposeTradeClick = (e) => {
     e.preventDefault();
-    props.setDisplayItemDetails(false);
-    props.setDisplayProposeTradeForm(true);
+    setDisplayProposeTradeForm(true);
+    setDisplayItemDetails(false);
   };
 
   const onHomeButtonClick = (e) => {
     e.preventDefault();
-    props.setDisplayItemDetails(false);
+    setDisplayItemDetails(false);
+    props.changeView('Profile', {});
   };
 
   const onAddButtonClick = (e) => {
@@ -148,20 +176,25 @@ function Item(props) {
 
   return (
     <Container>
-      <ProposeTradeForm
-        displayProposeTradeForm={props.displayProposeTradeForm}
-        currentUserId={props.currentUserId}
-        userId={userId}
-        itemPhoto={itemPhoto}
-        itemId={itemId}/>
+      <Box>
+        <ProposeTradeForm
+          displayProposeTradeForm={displayProposeTradeForm}
+          setDisplayProposeTradeForm={setDisplayProposeTradeForm}
+          setDisplayItemDetails={setDisplayItemDetails}
+          currentUserId={props.currentUserId}
+          userId={userId}
+          itemPhoto={itemPhoto}
+          itemId={itemId}/>
+      </Box>
 
-      <Box sx={props.displayItemDetails ? {display: 'block'} : {display: 'none'}}>
+
+      <Box sx={ displayItemDetails ? {display: 'block'} : {display: 'none'} }>
         <Box sx={additionalTopButtonsStyling}>
           <IconButton onClick={(e) => { onHomeButtonClick(e); }}>
-            <Home />
+            <Home sx={iconButtonStyling}/>
           </IconButton>
           <IconButton onClick={(e) => { onAddButtonClick(e); }}>
-            <Add/>
+            <Add sx={iconButtonStyling}/>
           </IconButton>
         </Box>
 
@@ -178,7 +211,7 @@ function Item(props) {
           <Avatar sx={avatarSX} alt="" src={profilePhotoThumbnail}/>
           <Box>
             <Typography><u>Location</u>:</Typography>
-            <Typography>{currentUserLocation.zip}</Typography>
+            <Typography>{currentUserLocation.city}, {currentUserLocation.state}</Typography>
           </Box>
         </Box1>
 
