@@ -6,21 +6,21 @@ import ItemEntry from './ItemEntry';
 import {styled} from '@mui/system'
 
 const Box1 = styled('div')({
-  backgroundColor: '#CAF0F8',
+  backgroundColor: '#0077B6',
   alignContent: 'center',
   flexWrap: 'wrap',
   display: 'flex',
   flexDirection: 'column' ,
   justifyContent: 'flex-start',
-  boxShadow: `-5px -5px 10px rgba(255,255,255,0.8),
-  5px 5px 10px rgba(0,0,0,0.25)`,
+  boxShadow: `-5px -5px 10px #00507a,
+  5px 5px 10px #009ef2`,
   borderRadius: '30px',
   marginBottom: '35px',
   paddingBottom: '20px',
   width: '100%',
 });
 const Box2 = styled('div')({
-  backgroundColor: '#CAF0F8',
+  backgroundColor: '#0077B6',
   alignContent: 'flex-end',
   flexWrap: 'wrap',
   display: 'flex',
@@ -35,10 +35,10 @@ const Title = styled('div')({
 const AddButton = styled('button')({
   width: '80px',
   height: '25px',
-  boxShadow: `5px 5px 10px #9ab6bc,
-  -5px -5px 10px #faffff`,
+  boxShadow: `7px 7px 14px #005a8a,
+  -7px -7px 14px #0094e2`,
   borderRadius: '10px',
-  backgroundColor: '#CAF0F8',
+  backgroundColor: '#0077B6',
   border: 'none',
   color: '#505050',
   marginTop: '15px'

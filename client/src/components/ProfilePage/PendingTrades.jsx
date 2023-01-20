@@ -6,21 +6,22 @@ import { Box, Switch, Grid } from '@mui/material/';
 import {styled} from '@mui/system'
 import RefreshIcon from '@mui/icons-material/Refresh';
 
+
+
 const Box1 = styled('div')({
-  backgroundColor: '#CAF0F8',
+  backgroundColor: '#0077B6',
   alignContent: 'center',
   flexWrap: 'wrap',
   display: 'flex',
   flexDirection: 'column' ,
   justifyContent: 'flex-start',
-  boxShadow: `-5px -5px 10px rgba(255,255,255,0.8),
-  5px 5px 10px rgba(0,0,0,0.25)`,
+  boxShadow: `-5px -5px 10px #00507a,
+  5px 5px 10px #009ef2`,
   borderRadius: '30px',
-  marginBottom: '20px',
-  height: '25vh',
+  marginBottom: '35px',
+  paddingBottom: '20px',
   width: '100%',
 });
-
 
 function PendingTrades({changeView, userData}) {
 // userData { id, email, password, thumnail_url, description, street, zip_code }
@@ -104,6 +105,7 @@ const toggleTrade = () => {
 
 
   return (
+    <Box1>
     <div id='trades'>
       <div className='trade-header'>
         <span className="toggle-text">
@@ -121,6 +123,7 @@ const toggleTrade = () => {
         Your Trades will show here..
       </div>
     </div>
+    </Box1>
   );
 }
 export default PendingTrades;

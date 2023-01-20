@@ -6,7 +6,7 @@ const Box1 = styled('div')({
   justifyContent: 'center',
   alignContent: 'center',
   display: 'flex',
-  bgcolor: '#CAF0F8',
+  bgcolor: '#0077B6',
   height: '10vh',
   borderRadius: '20px',
   width: '90%',
@@ -15,36 +15,36 @@ const Box1 = styled('div')({
 const Box2 = styled('div')({
   flexGrow: 1,
   alignContent: 'center',
-  backgroundColor: '#00B4D8',
+  backgroundColor: '#0077B6',
   borderRadius: '20px',
   paddingLeft: '20px',
   paddingTop: '5px',
-  background: '#CAF0F8',
-  boxShadow: `inset 2px 2px 3px #a4c2c9,
-  inset -2px -2px 3px #f0ffff`,
+  background: '#0077B68',
+  boxShadow: `inset 6px 6px 6px #006093,
+  inset -6px -6px 6px #008ed9`,
   fontSize:'smaller'
 
 })
 const TextArea1 = styled('textarea')({
   borderRadius: '5px',
-  background: '#CAF0F8',
-  boxShadow: `inset 5px 5px 6px #a4c2c9,
-  inset -5px -5px 6px #f0ffff`,
+  background: '#0077B6',
+  boxShadow: `inset 6px 6px 6px #006093,
+  inset -6px -6px 6px #008ed9`,
   border:'none'
 })
 const avatarSX = {
   marginBottom:'10px',
-  // boxShadow: `-8px -8px 12px rgba(232,242,255,0.8),
-  // 8px 8px 12px rgba(0,0,0,0.25),
-  // inset -2px -2px 5px rgba(255,255,255,0.6),
-  // inset 2px 2px 4px rgba(0,0,0,0.3)`,
+  boxShadow: `8px 8px 17px #006093,
+  -8px -8px 17px #008ed9,
+  inset -2px -2px 5px rgba(255,255,255,0.6),
+  inset 2px 2px 4px rgba(0,0,0,0.3)`,
   marginTop: '5px',
   width: '75px',
   height: '75px',
-  // border: '4px solid #CAF0F8',
+  border: '4px solid #0077B6',
   marginRight: '10px',
   marginLeft: '-8px',
-  // borderRadius: '10px'
+
 }
 
 function ItemEntry({user, item}) {
