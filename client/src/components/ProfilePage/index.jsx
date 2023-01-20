@@ -109,7 +109,7 @@ function Profile({user, changeView, props}) {
 
             <ItemsForTrade user={user} itemsData={itemsData} setAddItem={setAddItem} addItem={addItem}  />
             <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
-            <BookmarkedItems userData={{id: 1, thumbnail_url: userImage}} />
+            <BookmarkedItems user={user} userData={{id: 1, thumbnail_url: userImage}} />
           </PictureContainer>
           )}
       {addItem

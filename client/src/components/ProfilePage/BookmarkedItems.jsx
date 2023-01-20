@@ -54,7 +54,7 @@ const buttonSX = {
   },
 };
 
-function BookmarkedItems ({userData}) {
+function BookmarkedItems ({user, userData}) {
 
   const [bookmarkedForUser, setBookmarkedForUser] = useState([]);
 
@@ -84,7 +84,8 @@ function BookmarkedItems ({userData}) {
   return (
       <Box1 >
         <Title sx={{color: '#505050',}}>Bookmarked Items</Title>
-        <ItemEntry />
+        {bookmarkedForUser.map((item, key) => <ItemEntry user={user} item={item}  key={key} />)
+        }
         <Box2>
         </Box2>
       </Box1>
