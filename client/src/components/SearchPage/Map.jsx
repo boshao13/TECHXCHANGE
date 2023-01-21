@@ -6,10 +6,7 @@ import * as API from '../../API.js'
 import DATA from './address.json'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const ACCESS_TOKEN = 'pk.eyJ1IjoiYm9zaGFvMTMiLCJhIjoiY2xkMTgya2JhMXZkYTNudDdrYTQ1M25kdSJ9.DsCvNLZe6sZ1-zId4C-eIA'
-const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
 
-const GOOGLE_MAPS_KEY = 'AIzaSyAioaBzcUMBv_L3lsd9CoFbz4Gw-Xv-IhY'
 
 const INITIAL_VIEW_STATE = {
   latitude: 39.8283,
