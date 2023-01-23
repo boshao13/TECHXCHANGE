@@ -77,6 +77,12 @@ function ProposeTradeForm(props) {
     border: '4px solid #CAF0F8',
   }
 
+  const iconButtonStyling = {
+    boxShadow: `-3px -3px 3px rgba(232,242,255,0.8), 5px 5px 10px rgba(0,0,0,0.25)`,
+    borderRadius: '50%',
+    fontSize: '40px',
+  };
+
   useEffect(() => {
     getItemsFromUserID(props.currentUserId)
     .then((response) => {
@@ -90,7 +96,7 @@ function ProposeTradeForm(props) {
   const setDevice = (e, id) => {
     e.preventDefault(e);
     setSelectedUserDevice(id);
-    document.getElementById(id).style.border = 'solid 4px blue';
+    document.getElementById(id).style.border = 'solid 4px #03045E';
   }
 
   const onSubmitProposal = (e) => {
@@ -102,6 +108,9 @@ function ProposeTradeForm(props) {
       "receiver_device_id": props.itemId,
       "status": "proposed"
     });
+
+    props.setDisplayProposeTradeForm(false);
+    props.setDisplayItemDetails(true);
   };
 
   const onHomeButtonClick = (e) => {
@@ -110,26 +119,25 @@ function ProposeTradeForm(props) {
 
   const deviceMap = userDevices.map((device) => {
     return (
-      <IconButton key={`button${device.id}`}>
-        <Avatar sx={avatarSX} id={device.id} src={device.thumbnail_url} alt="" onClick={(e) => {setDevice(e, device.id)}}/>
+      <IconButton key={`button${device.id}`} onClick={(e) => {setDevice(e, device.id)}}>
+        <Avatar sx={avatarSX} id={device.id} src={device.thumbnail_url} alt=""/>
       </IconButton>)
   });
 
   return (
-    <Container>
-      <Box sx={props.displayProposeTradeForm ? {display: 'block', marginTop: '10px'} : {display: 'none'}}>
-       <Box sx={additionalTopButtonsStyling}>
-          <IconButton onClick={(e) => { onHomeButtonClick(e); }}>
-            <Home/>
-          </IconButton>
-          <IconButton>
-            <Add />
-          </IconButton>
-        </Box>
-
-      <Box sx={additionalTitleStyling}>
-        <Typography variant="h4">Propose Trade</Typography>
+    <Box sx={props.displayProposeTradeForm ? {display: 'block', marginTop: '10px'} : {display: 'none'}}>
+      <Box sx={additionalTopButtonsStyling}>
+        <IconButton onClick={(e) => { onHomeButtonClick(e); }}>
+          <Home sx={iconButtonStyling}/>
+        </IconButton>
+        <IconButton>
+          <Add sx={iconButtonStyling}/>
+        </IconButton>
       </Box>
+
+      <div style={additionalTitleStyling}>
+        <Typography variant='h4'>Propose Trade</Typography>
+      </div>
 
       <form onSubmit={(e) => {onSubmitProposal(e)}}>
         <Box1 sx={additionalSelectedItemStyling}>
@@ -139,7 +147,9 @@ function ProposeTradeForm(props) {
 
         <Box1 sx={additionalUserItemsStyling}>
           <Typography sx={{margin: '10px'}}>Select a device to trade:</Typography>
+          <Box>
             {deviceMap}
+          </Box>
         </Box1>
 
         <Box sx={additionalButtonStyling}>
@@ -148,8 +158,7 @@ function ProposeTradeForm(props) {
           </ProposeTradeButton>
         </Box>
       </form>
-      </Box>
-    </Container>
+    </Box>
   );
 }
 
