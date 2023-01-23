@@ -6,7 +6,8 @@ import BookmarkedItems from './BookmarkedItems'
 import AddItem from './AddItem';
 import { styled } from '@mui/system';
 import axios from 'axios';
-import SearchIcon from '@mui/icons-material/Search';
+///
+
 
 const PictureContainer = styled('div')({
   backgroundColor: '#0077B6',
@@ -50,20 +51,21 @@ const avatarSX = {
   marginTop: '15px',
   width: '200px',
   height: '200px',
+
   border: '7px solid #0077B6',
+
 
 }
 
-
 function Profile({user, changeView, props}) {
-  const [addItem, setAddItem] = useState(false);
-
+  const [addItem, setAddItem] = useState(true);
   const [userName, setUserName] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userDescription, setUserDescription] = useState('')
-  const [itemsData, setItemsData] = useState([])
+
 // props.changeView
   useEffect(() => {
+
     console.log('CURRENT USER', user)
       setUserName(user.name)
       setUserImage(user.thumbnail_url || 'https://viterbischool.usc.edu/wp-content/uploads/2020/05/Lily-Profile-Square.jpeg')
@@ -84,11 +86,13 @@ function Profile({user, changeView, props}) {
    changeView('Search', {})
   }
 
+
   return (
     <>
       {!addItem
           && (
           <PictureContainer >
+
                    <SearchIcon onClick={handleSearch}sx={{
   // boxShadow: `5px 5px 10px #9ab6bc,
   // -5px -5px 10px #faffff`,
@@ -101,6 +105,7 @@ function Profile({user, changeView, props}) {
   // width: '50px',
   // height: '50px'
 }}/>
+
             <Box1>
               <Avatar sx={avatarSX} src={userImage}/>
               <Box2>
@@ -109,7 +114,9 @@ function Profile({user, changeView, props}) {
               </Box2>
             </Box1>
 
+
             <ItemsForTrade changeView={changeView} user={user} itemsData={itemsData} setAddItem={setAddItem} addItem={addItem}  />
+
             <PendingTrades  changeView={changeView} userData={{id: 1, thumbnail_url: userImage}} />
             <BookmarkedItems user={user} userData={{id: 1, thumbnail_url: userImage}} />
           </PictureContainer>
@@ -122,4 +129,5 @@ function Profile({user, changeView, props}) {
 
   );
 }
-export default Profile
+
+export default Profile;

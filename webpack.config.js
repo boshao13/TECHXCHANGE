@@ -27,6 +27,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
     ],
+
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
@@ -40,6 +41,7 @@ module.exports = {
           }
         ]
       }
+
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
